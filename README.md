@@ -1,2 +1,3 @@
 # DQ Terraform Module
-[insert some docs and usage guide]
+
+EC2 module running mock DB and Web servers for connectivity tests between subnets and VPC.
