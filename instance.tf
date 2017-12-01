@@ -20,52 +20,6 @@ resource "aws_subnet" "data_ingest" {
   }
 }
 
-variable instance_type {
-  default = "t2.nano"
-}
-
-data "aws_ami" "linux_connectivity_tester" {
-  most_recent = true
-
-  filter {
-    name = "name"
-
-    values = [
-      "connectivity-tester-linux*",
-    ]
-  }
-
-  owners = [
-    "093401982388",
-  ]
-}
-
-resource "aws_instance" "di_postgres" {
-  ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
-  instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.data_ingest.id}"
-  vpc_security_group_ids = ["${aws_security_group.di_db.id}"]
-
-  tags {
-    Name = "${local.name_prefix}postgres"
-  }
-
-  user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:5432"
-}
-
-resource "aws_instance" "di_web" {
-  ami                    = "${data.aws_ami.linux_connectivity_tester.id}"
-  instance_type          = "${var.instance_type}"
-  subnet_id              = "${aws_subnet.data_ingest.id}"
-  vpc_security_group_ids = ["${aws_security_group.di_web.id}"]
-
-  tags {
-    Name = "${local.name_prefix}web"
-  }
-
-  user_data = "CHECK_self=127.0.0.1:8080 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_https=0.0.0.0:443 LISTEN_tcp=0.0.0.0:3389"
-}
-
 resource "aws_security_group" "di_db" {
   vpc_id = "${var.appsvpc_id}"
 
@@ -115,4 +69,16 @@ resource "aws_security_group" "di_web" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+}
+
+output "di_subnet_id" {
+  value = "${aws_subnet.data_ingest.id}"
+}
+
+output "di_db_sg" {
+  value = "${aws_security_group.di_db.id}"
+}
+
+output "di_web_sg" {
+  value = "${aws_security_group.di_web.id}"
 }
