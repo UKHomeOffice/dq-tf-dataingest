@@ -40,12 +40,6 @@ class TestE2E(unittest.TestCase):
     def test_name_prefix_data_ingest_subnet(self):
         self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["tags.Name"], "dq-apps-data-ingest-subnet")
 
-    def test_name_prefix_di_postgres(self):
-        self.assertEqual(self.result['data_ingest']["aws_instance.di_postgres"]["tags.Name"], "dq-apps-data-ingest-postgres")
-
-    def test_name_prefix_di_web(self):
-        self.assertEqual(self.result['data_ingest']["aws_instance.di_web"]["tags.Name"], "dq-apps-data-ingest-web")
-
     def test_name_prefix_di_db(self):
         self.assertEqual(self.result['data_ingest']["aws_security_group.di_db"]["tags.Name"], "dq-apps-data-ingest-db-sg")
 
