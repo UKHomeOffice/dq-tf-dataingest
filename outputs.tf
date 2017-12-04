@@ -9,3 +9,7 @@ output "di_db_sg" {
 output "di_web_sg" {
   value = "${aws_security_group.di_web.id}"
 }
+
+output "data_ingest_cidr_block" {
+  value = "${var.data_ingest_cidr_block}"
+}
