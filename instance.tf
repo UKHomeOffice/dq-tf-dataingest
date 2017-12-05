@@ -13,6 +13,18 @@ resource "aws_subnet" "data_ingest" {
   }
 }
 
+module "di_connectivity_tester_db" {
+  source    = "github.com/ukhomeoffice/connectivity-tester-tf"
+  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:5432"
+  subnet_id = "${aws_subnet.data_ingest.id}"
+}
+
+module "di_connectivity_tester_web" {
+  source    = "github.com/ukhomeoffice/connectivity-tester-tf"
+  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:5432"
+  subnet_id = "${aws_subnet.data_ingest.id}"
+}
+
 resource "aws_security_group" "di_db" {
   vpc_id = "${var.appsvpc_id}"
 
