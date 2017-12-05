@@ -21,7 +21,7 @@ module "di_connectivity_tester_db" {
 
 module "di_connectivity_tester_web" {
   source    = "github.com/ukhomeoffice/connectivity-tester-tf"
-  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:5432"
+  user_data = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389"
   subnet_id = "${aws_subnet.data_ingest.id}"
 }
 
