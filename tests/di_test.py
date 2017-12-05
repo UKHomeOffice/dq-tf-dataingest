@@ -22,9 +22,9 @@ class TestE2E(unittest.TestCase):
               }
 
               appsvpc_id                  = "1234"
-              appsvpc_cidr_block          = "1.2.3.0/24"
-              opsvpc_cidr_block           = "1.2.3.0/24"
+              opssubnet_cidr_block        = "1.2.3.0/24"
               data_ingest_cidr_block      = "10.1.6.0/24"
+              data_pipe_apps_cidr_block   = "1.2.3.0/24"
               az                          = "eu-west-2a"
               name_prefix                 = "dq-"
             }
