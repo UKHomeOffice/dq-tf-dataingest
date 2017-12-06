@@ -15,7 +15,7 @@ resource "aws_subnet" "data_ingest" {
 
 module "di_connectivity_tester_db" {
   source          = "github.com/ukhomeoffice/connectivity-tester-tf"
-  user_data       = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:5432 GROUP_web:${var.di_connectivity_tester_web_ip}:135"
+  user_data       = "LISTEN_tcp=0.0.0.0:5432"
   subnet_id       = "${aws_subnet.data_ingest.id}"
   security_groups = ["${aws_security_group.di_db.id}"]
   private_ip      = "${var.di_connectivity_tester_db_ip}"
@@ -23,7 +23,7 @@ module "di_connectivity_tester_db" {
 
 module "di_connectivity_tester_web" {
   source          = "github.com/ukhomeoffice/connectivity-tester-tf"
-  user_data       = "CHECK_self=127.0.0.1:80 CHECK_google=google.com:80 CHECK_googletls=google.com:443 LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389 GROUP_db:${var.di_connectivity_tester_db_ip}:5432"
+  user_data       = "LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389 CHECK_db:${var.di_connectivity_tester_db_ip}:5432"
   subnet_id       = "${aws_subnet.data_ingest.id}"
   security_groups = ["${aws_security_group.di_web.id}"]
   private_ip      = "${var.di_connectivity_tester_web_ip}"
