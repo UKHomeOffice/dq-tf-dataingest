@@ -13,6 +13,11 @@ resource "aws_subnet" "data_ingest" {
   }
 }
 
+resource "aws_route_table_association" "data_ingest_rt_association" {
+  subnet_id      = "${aws_subnet.data_ingest.id}"
+  route_table_id = "${var.route_table_id}"
+}
+
 module "di_connectivity_tester_db" {
   source          = "github.com/ukhomeoffice/connectivity-tester-tf"
   user_data       = "LISTEN_tcp=0.0.0.0:5432"
