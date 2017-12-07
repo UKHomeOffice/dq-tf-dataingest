@@ -1,4 +1,4 @@
-# pylint: disable=missing-docstring, line-too-long, protected-access
+# pylint: disable=missing-docstring, line-too-long, protected-access, E1101, C0202, E0602, W0109
 import unittest
 from runner import Runner
 
@@ -37,7 +37,7 @@ class TestE2E(unittest.TestCase):
     def test_data_ingest_subnet(self):
         self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["cidr_block"], "10.1.6.0/24")
 
-    def test_name_prefix_data_ingest_subnet(self):
+    def test_name_prefix_data_ingest(self):
         self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["tags.Name"], "dq-apps-data-ingest-subnet")
 
     def test_name_prefix_di_db(self):
