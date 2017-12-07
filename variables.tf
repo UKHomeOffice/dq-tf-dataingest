@@ -12,7 +12,7 @@ variable "route_table_id" {
 
 variable "di_connectivity_tester_db_ip" {
   description = "Mock EC2 database instance."
-  default     = "10.1.4.11"
+  default     = "10.1.6.11"
 }
 
 variable "di_connectivity_tester_web_ip" {
