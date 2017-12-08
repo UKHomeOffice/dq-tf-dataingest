@@ -36,7 +36,7 @@ module "di_connectivity_tester_db" {
 module "di_connectivity_tester_web" {
   source          = "github.com/ukhomeoffice/connectivity-tester-tf"
   subnet_id       = "${aws_subnet.data_ingest.id}"
-  user_data       = "LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389 CHECK_db:${var.di_connectivity_tester_db_ip}:5432"
+  user_data       = "LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389 CHECK_db=${var.di_connectivity_tester_db_ip}:5432"
   security_groups = ["${aws_security_group.di_web.id}"]
   private_ip      = "${var.di_connectivity_tester_web_ip}"
 
