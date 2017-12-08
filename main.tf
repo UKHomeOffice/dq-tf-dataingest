@@ -24,6 +24,13 @@ module "di_connectivity_tester_db" {
   subnet_id       = "${aws_subnet.data_ingest.id}"
   security_groups = ["${aws_security_group.di_db.id}"]
   private_ip      = "${var.di_connectivity_tester_db_ip}"
+
+  tags = {
+    Name             = "ec2-${var.service}-sql-server-${var.environment}"
+    Service          = "${var.service}"
+    Environment      = "${var.environment}"
+    EnvironmentGroup = "${var.environment_group}"
+  }
 }
 
 module "di_connectivity_tester_web" {
@@ -32,6 +39,13 @@ module "di_connectivity_tester_web" {
   subnet_id       = "${aws_subnet.data_ingest.id}"
   security_groups = ["${aws_security_group.di_web.id}"]
   private_ip      = "${var.di_connectivity_tester_web_ip}"
+
+  tags = {
+    Name             = "ec2-${var.service}-wherescape-${var.environment}"
+    Service          = "${var.service}"
+    Environment      = "${var.environment}"
+    EnvironmentGroup = "${var.environment_group}"
+  }
 }
 
 resource "aws_security_group" "di_db" {
