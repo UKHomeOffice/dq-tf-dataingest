@@ -20,8 +20,8 @@ resource "aws_route_table_association" "data_ingest_rt_association" {
 
 module "di_connectivity_tester_db" {
   source          = "github.com/ukhomeoffice/connectivity-tester-tf"
-  user_data       = "LISTEN_tcp=0.0.0.0:5432"
   subnet_id       = "${aws_subnet.data_ingest.id}"
+  user_data       = "LISTEN_tcp=0.0.0.0:5432"
   security_groups = ["${aws_security_group.di_db.id}"]
   private_ip      = "${var.di_connectivity_tester_db_ip}"
 
@@ -35,8 +35,8 @@ module "di_connectivity_tester_db" {
 
 module "di_connectivity_tester_web" {
   source          = "github.com/ukhomeoffice/connectivity-tester-tf"
-  user_data       = "LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389 CHECK_db:${var.di_connectivity_tester_db_ip}:5432"
   subnet_id       = "${aws_subnet.data_ingest.id}"
+  user_data       = "LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389 CHECK_db:${var.di_connectivity_tester_db_ip}:5432"
   security_groups = ["${aws_security_group.di_web.id}"]
   private_ip      = "${var.di_connectivity_tester_web_ip}"
 
@@ -68,10 +68,13 @@ resource "aws_security_group" "di_db" {
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+
+    cidr_blocks = [
+      "0.0.0.0/0",
+    ]
   }
 }
 
@@ -83,23 +86,32 @@ resource "aws_security_group" "di_web" {
   }
 
   ingress {
-    from_port   = 135
-    to_port     = 135
-    protocol    = "tcp"
-    cidr_blocks = ["${var.data_pipe_apps_cidr_block}"]
+    from_port = 135
+    to_port   = 135
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.data_pipe_apps_cidr_block}",
+    ]
   }
 
   ingress {
-    from_port   = 3389
-    to_port     = 3389
-    protocol    = "tcp"
-    cidr_blocks = ["${var.opssubnet_cidr_block}"]
+    from_port = 3389
+    to_port   = 3389
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.opssubnet_cidr_block}",
+    ]
   }
 
   egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+
+    cidr_blocks = [
+      "0.0.0.0/0",
+    ]
   }
 }
