@@ -8,8 +8,8 @@ This Terraform module has one private subnet and deploys an EC2 instance represe
 | In/Out        | Type           | Protocol | FromPort| To Port | Description |
 | ------------- |:-------------:| -----:| -----:|-----:| -----:|
 |INBOUND | RDP | TCP |3389 | 3389| Dataingest Web |
-|INBOUND | Custom TCP | TCP | 135 | 135 | Dataingest Web |
-|INBOUND | Custom TCP | TCP | 5432 | 5432 | Dataingest PostgreSQL |
+|INBOUND | RPC TCP | TCP | 135 | 135 | Dataingest Web |
+|INBOUND | PostgreSQL TCP | TCP | 5432 | 5432 | Dataingest PostgreSQL |
 
 ## Content overview
 
