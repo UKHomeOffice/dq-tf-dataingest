@@ -28,6 +28,7 @@ class TestE2E(unittest.TestCase):
               peering_cidr_block          = "1.1.1.0/24"
               az                          = "eu-west-2a"
               name_prefix                 = "dq-"
+              naming_suffix               = "apps-preprod-dq"
             }
         """
         self.result = Runner(self.snippet).result

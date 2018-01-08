@@ -1,5 +1,5 @@
 locals {
-  name_prefix = "${var.name_prefix}apps-data-ingest-"
+  naming_suffix = "dataingest-${var.naming_suffix}"
 }
 
 resource "aws_subnet" "data_ingest" {
