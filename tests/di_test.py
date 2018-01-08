@@ -27,7 +27,6 @@ class TestE2E(unittest.TestCase):
               data_pipe_apps_cidr_block   = "1.2.3.0/24"
               peering_cidr_block          = "1.1.1.0/24"
               az                          = "eu-west-2a"
-              name_prefix                 = "dq-"
               naming_suffix               = "apps-preprod-dq"
             }
         """
@@ -39,14 +38,14 @@ class TestE2E(unittest.TestCase):
     def test_data_ingest_subnet(self):
         self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["cidr_block"], "10.1.6.0/24")
 
-    def test_name_prefix_data_ingest(self):
-        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["tags.Name"], "dq-apps-data-ingest-subnet")
+    def test_name_suffix_data_ingest(self):
+        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["tags.Name"], "subnet-dataingest-apps-preprod-dq")
 
-    def test_name_prefix_di_db(self):
-        self.assertEqual(self.result['data_ingest']["aws_security_group.di_db"]["tags.Name"], "dq-apps-data-ingest-db-sg")
+    def test_name_suffix_di_db(self):
+        self.assertEqual(self.result['data_ingest']["aws_security_group.di_db"]["tags.Name"], "sg-db-dataingest-apps-preprod-dq")
 
-    def test_name_prefix_di_web(self):
-        self.assertEqual(self.result['data_ingest']["aws_security_group.di_web"]["tags.Name"], "dq-apps-data-ingest-web-sg")
+    def test_name_suffix_di_web(self):
+        self.assertEqual(self.result['data_ingest']["aws_security_group.di_web"]["tags.Name"], "sg-web-dataingest-apps-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()
