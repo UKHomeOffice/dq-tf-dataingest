@@ -112,3 +112,22 @@ resource "aws_security_group" "di_web" {
     ]
   }
 }
+
+resource "aws_iam_role" "data_ingest_iam_role" {
+  name = "data_ingest_iam_role"
+
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
