@@ -6,6 +6,6 @@ output "di_connectivity_tester_db_ip" {
   value = "${var.di_connectivity_tester_db_ip}"
 }
 
-output "data_ingest_iam_role" {
-  value = "${aws_iam_role.data_ingest_iam_role.name}"
+output "iam_roles" {
+  value = ["${aws_iam_role.data_ingest_iam_role.name}"]
 }
