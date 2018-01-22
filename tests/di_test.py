@@ -28,6 +28,7 @@ class TestE2E(unittest.TestCase):
               peering_cidr_block          = "1.1.1.0/24"
               az                          = "eu-west-2a"
               naming_suffix               = "apps-preprod-dq"
+              data_landing_bucket         = "arn::aws:s3:::abc-de-fg"
             }
         """
         self.result = Runner(self.snippet).result

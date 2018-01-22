@@ -131,3 +131,41 @@ resource "aws_iam_role" "data_ingest_iam_role" {
 }
 EOF
 }
+
+resource "aws_iam_user" "data_ingest_landing" {
+  name = "data_ingest_landing_user"
+}
+
+resource "aws_iam_access_key" "data_ingest_landing" {
+  user = "${aws_iam_user.data_ingest_landing.name}"
+}
+
+resource "aws_iam_user_policy" "data_ingest_landing" {
+  name = "data_ingest_landing"
+  user = "${aws_iam_user.data_ingest_landing.name}"
+
+  policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": [
+        "s3:ListBucket",
+        "s3:GetBucketAcl"
+      ],
+      "Effect": "Allow",
+      "Resource": "${var.data_landing_bucket}"
+    },
+    {
+      "Action": [
+        "s3:PutObject",
+        "s3:GetObject",
+        "s3:DeleteObject"
+      ],
+      "Effect": "Allow",
+      "Resource": "${var.data_landing_bucket}/*"
+    },
+  ]
+}
+EOF
+}
