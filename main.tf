@@ -164,7 +164,7 @@ resource "aws_iam_user_policy" "data_ingest_landing" {
       ],
       "Effect": "Allow",
       "Resource": "${var.data_landing_bucket}/*"
-    },
+    }
   ]
 }
 EOF
