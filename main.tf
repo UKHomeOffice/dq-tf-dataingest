@@ -123,7 +123,8 @@ resource "aws_iam_role" "data_ingest_iam_role" {
     {
       "Effect": "Allow",
       "Principal": {
-        "Service": "ec2.amazonaws.com"
+        "Service": "ec2.amazonaws.com",
+        "Service": "s3.amazonaws.com"
       },
       "Action": "sts:AssumeRole"
     }
