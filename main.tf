@@ -42,37 +42,6 @@ module "di_connectivity_tester_web" {
   }
 }
 
-resource "aws_security_group" "di_db" {
-  vpc_id = "${var.appsvpc_id}"
-
-  tags {
-    Name = "sg-db-${local.naming_suffix}"
-  }
-
-  ingress {
-    from_port = 5432
-    to_port   = 5432
-    protocol  = "tcp"
-
-    cidr_blocks = [
-      "${var.opssubnet_cidr_block}",
-      "${var.data_pipe_apps_cidr_block}",
-      "${var.data_ingest_cidr_block}",
-      "${var.peering_cidr_block}",
-    ]
-  }
-
-  egress {
-    from_port = 0
-    to_port   = 0
-    protocol  = "-1"
-
-    cidr_blocks = [
-      "0.0.0.0/0",
-    ]
-  }
-}
-
 resource "aws_security_group" "di_web" {
   vpc_id = "${var.appsvpc_id}"
 
