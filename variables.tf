@@ -5,6 +5,9 @@ variable "data_ingest_cidr_block" {}
 variable "peering_cidr_block" {}
 variable "az" {}
 variable "data_landing_bucket" {}
+variable "s3_bucket_name" {}
+variable "s3_bucket_acl" {}
+variable "region" {}
 
 variable "naming_suffix" {
   default     = false
