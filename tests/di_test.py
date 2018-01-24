@@ -29,9 +29,6 @@ class TestE2E(unittest.TestCase):
               az                          = "eu-west-2a"
               naming_suffix               = "apps-preprod-dq"
               data_landing_bucket         = "arn::aws:s3:::abc-de-fg"
-              s3_bucket_name              = "s3-test-bucket"
-              s3_bucket_acl               = "private"
-              region                      = "eu-west-2"
             }
         """
         self.result = Runner(self.snippet).result

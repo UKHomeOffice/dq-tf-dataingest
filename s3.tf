@@ -1,12 +1,17 @@
+resource "random_string" "s3" {
+  length  = 6
+  upper   = false
+  special = false
+}
+
 resource "aws_kms_key" "data_landing_bucket_key" {
   description             = "This key is used to encrypt APPS buckets"
   deletion_window_in_days = 7
 }
 
 resource "aws_s3_bucket" "data_landing_bucket" {
-  bucket = "${var.s3_bucket_name}"
-  acl    = "${var.s3_bucket_acl}"
-  region = "${var.region}"
+  bucket = "s3-data-landing-${random_string.s3.result}"
+  region = "${data.aws_region.current.name}"
 
   server_side_encryption_configuration {
     rule {
