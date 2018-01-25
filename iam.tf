@@ -49,8 +49,8 @@ resource "aws_iam_policy" "data_ingest_ec2_landing_bucket" {
 EOF
 }
 
-resource "aws_iam_policy_attachment" "data_ingest_ec2_landing_bucket" {
-  name       = "data_ingest_ec2_landing_bucket"
+resource "aws_iam_policy_attachment" "data_ingest_landing_bucket" {
+  name       = "data_ingest_landing_bucket"
   roles      = ["${aws_iam_role.data_ingest_iam_role.arn}"]
   policy_arn = "${aws_iam_policy.data_ingest_ec2_landing_bucket.arn}"
 }
