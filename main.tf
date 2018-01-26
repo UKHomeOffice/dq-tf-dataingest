@@ -57,14 +57,14 @@ resource "aws_instance" "dp_web" {
   user_data = <<EOF
   <powershell>
   $original_file = 'C:\scripts\data_transfer.bat'
-  $destination_file =  'C:\scripts\data_transfer_config.bat'
+  $destination_file = 'C:\scripts\data_transfer_config.bat'
 
   (Get-Content $original_file) | Foreach-Object {
       $_ -replace 'bucket_name', "${aws_s3_bucket.data_landing_bucket.id}" `
          -replace 'source_path', "${var.bucket_src_path}" `
          -replace 'destination_path', "${var.local_dest_path}"
       } | Set-Content $destination_file
-  <powershell>
+  </powershell>
 EOF
 
   tags {
