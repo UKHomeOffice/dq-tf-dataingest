@@ -30,30 +30,3 @@ resource "aws_s3_bucket" "data_landing_bucket" {
     Name = "s3-data-landing-bucket-${local.naming_suffix}"
   }
 }
-
-resource "aws_s3_bucket_policy" "data_landing_bucket_policy" {
-  bucket = "${aws_s3_bucket.data_landing_bucket.id}"
-
-  policy = <<EOF
-{
-  "Version": "2012-10-17",
-  "Statement": [
-    {
-      "Effect": "Allow",
-      "Principal": {"Service": "ec2.amazonaws.com"},
-      "Action": "s3:ListBucket",
-      "Resource": ["${aws_s3_bucket.data_landing_bucket.arn}"]
-    },
-    {
-      "Effect": "Allow",
-      "Principal": {"Service": "ec2.amazonaws.com"},
-      "Action": [
-        "s3:PutObject",
-        "s3:GetObject"
-      ],
-      "Resource": ["${aws_s3_bucket.data_landing_bucket.arn}/*"]
-    }
-  ]
-}
-EOF
-}
