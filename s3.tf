@@ -10,7 +10,7 @@ resource "aws_kms_key" "data_landing_bucket_key" {
 }
 
 resource "aws_s3_bucket" "data_landing_bucket" {
-  bucket = "s3-data-landing-${random_string.s3.result}"
+  bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   region = "${data.aws_region.current.name}"
 
   server_side_encryption_configuration {
