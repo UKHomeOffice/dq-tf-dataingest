@@ -1,5 +1,5 @@
 resource "aws_db_subnet_group" "rds" {
-  name = "data_ingest_rds_main_group"
+  name = "rds_main_group"
 
   subnet_ids = [
     "${aws_subnet.data_ingest.id}",
