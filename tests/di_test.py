@@ -30,6 +30,11 @@ class TestE2E(unittest.TestCase):
               az                          = "eu-west-2a"
               az2                         = "eu-west-2b"
               naming_suffix               = "apps-preprod-dq"
+              instance_type               = "t2.micro"
+              key_name                    = "test"
+              dp_web_private_ip           = "10.1.1.1"
+              bucket_src_path             = "test"
+              local_dest_path             = "C:\tmp"
             }
         """
         self.result = Runner(self.snippet).result
@@ -57,6 +62,9 @@ class TestE2E(unittest.TestCase):
 
     def test_name_suffix_rds_postgres(self):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.postgres"]["tags.Name"], "rds-postgres-dataingest-apps-preprod-dq")
+
+    def test_name_suffix_ec2(self):
+        self.assertEqual(self.result['data_ingest']["aws_instance.dp_web"]["tags.Name"], "ec2-web-dataingest-apps-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()
