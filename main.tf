@@ -42,6 +42,36 @@ module "di_connectivity_tester_web" {
   }
 }
 
+resource "aws_instance" "dp_web" {
+  instance_type               = "${var.instance_type}"
+  ami                         = "${data.aws_ami.dp_web.id}"
+  key_name                    = "${var.key_name}"
+  associate_public_ip_address = false
+  private_ip                  = "${var.dp_web_private_ip}"
+
+  iam_instance_profile = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
+  subnet_id            = "${aws_subnet.data_ingest.id}"
+
+  vpc_security_group_ids = ["${aws_security_group.di_web.id}"]
+
+  user_data = <<EOF
+  <powershell>
+  $original_file = 'C:\scripts\data_transfer.bat'
+  $destination_file =  'C:\scripts\data_transfer_config.bat'
+
+  (Get-Content $original_file) | Foreach-Object {
+      $_ -replace 'bucket_name', "${aws_s3_bucket.data_landing_bucket.id}" `
+         -replace 'source_path', "${var.bucket_src_path}" `
+         -replace 'destination_path', "${var.local_dest_path}"
+      } | Set-Content $destination_file
+  <powershell>
+EOF
+
+  tags {
+    Name = "ec2-web-${local.naming_suffix}"
+  }
+}
+
 resource "aws_security_group" "di_web" {
   vpc_id = "${var.appsvpc_id}"
 
