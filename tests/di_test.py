@@ -30,7 +30,6 @@ class TestE2E(unittest.TestCase):
               az                          = "eu-west-2a"
               az2                         = "eu-west-2b"
               naming_suffix               = "apps-preprod-dq"
-              instance_type               = "t2.micro"
               key_name                    = "test"
               dp_web_private_ip           = "10.1.1.1"
               bucket_src_path             = "test"
