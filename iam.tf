@@ -1,5 +1,4 @@
 resource "aws_iam_role" "data_ingest_iam_role" {
-  name = "data_ingest_iam_role"
 
   assume_role_policy = <<EOF
 {
