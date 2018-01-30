@@ -51,3 +51,16 @@ variable "local_dest_path" {
   description = "Local instance destination full file path"
   default     = "C:\tmp"
 }
+
+variable "TCPPorts" {
+  type        = "list"
+  description = "TCP ports as a simple list"
+}
+
+variable "asg_min" {
+  description = "Min value of running instances"
+}
+
+variable "asg_max" {
+  description = "Max value of running instances"
+}

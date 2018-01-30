@@ -35,6 +35,9 @@ class TestE2E(unittest.TestCase):
               dp_web_private_ip           = "10.1.1.1"
               bucket_src_path             = "test"
               local_dest_path             = "C:\tmp"
+              TCPPorts                    = ["135","443","1433"]
+              asg_min                     = 1
+              asg_max                     = 2
             }
         """
         self.result = Runner(self.snippet).result
@@ -58,13 +61,11 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['data_ingest']["aws_db_subnet_group.rds"]["tags.Name"], "rds-subnet-group-dataingest-apps-preprod-dq")
 
     def test_name_suffix_rds_subnet(self):
-        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest_rds_az2"]["tags.Name"], "rds-subnet-az2-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest_az2"]["tags.Name"], "az2-subnet-dataingest-apps-preprod-dq")
 
     def test_name_suffix_rds_postgres(self):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.postgres"]["tags.Name"], "rds-postgres-dataingest-apps-preprod-dq")
 
-    def test_name_suffix_ec2(self):
-        self.assertEqual(self.result['data_ingest']["aws_instance.dp_web"]["tags.Name"], "ec2-web-dataingest-apps-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()

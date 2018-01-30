@@ -42,17 +42,32 @@ module "di_connectivity_tester_web" {
   }
 }
 
-resource "aws_instance" "dp_web" {
-  instance_type               = "${var.instance_type}"
-  ami                         = "${data.aws_ami.dp_web.id}"
+module "di_elb" {
+  source = "github.com/UKHomeOffice/dq-tf-elb"
+
+  subnet_list = [
+    "${aws_subnet.data_ingest.id}",
+    "${aws_subnet.data_ingest_az2.id}",
+  ]
+
+  security_groups = ["${aws_security_group.di_web.id}"]
+  vpc_id          = "${var.appsvpc_id}"
+  asg_min         = "${var.asg_min}"
+  asg_max         = "${var.asg_max}"
+  TCPPorts        = ["${var.TCPPorts}"]
+  launch_config   = "${aws_launch_configuration.dp_web.id}"
+}
+
+resource "aws_launch_configuration" "dp_web" {
+  security_groups = [
+    "${aws_security_group.di_web.id}",
+  ]
+
   key_name                    = "${var.key_name}"
+  image_id                    = "${data.aws_ami.di_web.id}"
+  instance_type               = "${var.instance_type}"
+  iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
   associate_public_ip_address = false
-  private_ip                  = "${var.dp_web_private_ip}"
-
-  iam_instance_profile = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
-  subnet_id            = "${aws_subnet.data_ingest.id}"
-
-  vpc_security_group_ids = ["${aws_security_group.di_web.id}"]
 
   user_data = <<EOF
   <powershell>
@@ -67,8 +82,8 @@ resource "aws_instance" "dp_web" {
   </powershell>
 EOF
 
-  tags {
-    Name = "ec2-web-${local.naming_suffix}"
+  lifecycle {
+    create_before_destroy = true
   }
 }
 

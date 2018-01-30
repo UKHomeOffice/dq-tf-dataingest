@@ -3,7 +3,7 @@ resource "aws_db_subnet_group" "rds" {
 
   subnet_ids = [
     "${aws_subnet.data_ingest.id}",
-    "${aws_subnet.data_ingest_rds_az2.id}",
+    "${aws_subnet.data_ingest_az2.id}",
   ]
 
   tags {
@@ -11,15 +11,20 @@ resource "aws_db_subnet_group" "rds" {
   }
 }
 
-resource "aws_subnet" "data_ingest_rds_az2" {
+resource "aws_subnet" "data_ingest_az2" {
   vpc_id                  = "${var.appsvpc_id}"
   cidr_block              = "${var.data_ingest_rds_cidr_block}"
   map_public_ip_on_launch = false
   availability_zone       = "${var.az2}"
 
   tags {
-    Name = "rds-subnet-az2-${local.naming_suffix}"
+    Name = "az2-subnet-${local.naming_suffix}"
   }
+}
+
+resource "aws_route_table_association" "data_ingest_rt_rds" {
+  subnet_id      = "${aws_subnet.data_ingest_az2.id}"
+  route_table_id = "${var.route_table_id}"
 }
 
 resource "random_string" "password" {
