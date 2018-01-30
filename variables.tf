@@ -27,11 +27,6 @@ variable "di_connectivity_tester_web_ip" {
   default     = "10.1.6.21"
 }
 
-variable "instance_type" {
-  default     = "t2.micro"
-  description = "EC2 instance size unless specified."
-}
-
 variable "key_name" {
   default     = "test_instance"
   description = "Key name for login."
