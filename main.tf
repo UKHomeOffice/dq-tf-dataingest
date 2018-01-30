@@ -52,9 +52,9 @@ module "di_elb" {
 
   security_groups = ["${aws_security_group.di_web.id}"]
   vpc_id          = "${var.appsvpc_id}"
-  asg_min         = "${var.asg_min}"
-  asg_max         = "${var.asg_max}"
-  TCPPorts        = ["${var.TCPPorts}"]
+  asg_min         = 1
+  asg_max         = 2
+  TCPPorts        = ["135"]
   launch_config   = "${aws_launch_configuration.dp_web.id}"
 }
 
@@ -65,7 +65,7 @@ resource "aws_launch_configuration" "dp_web" {
 
   key_name                    = "${var.key_name}"
   image_id                    = "${data.aws_ami.di_web.id}"
-  instance_type               = "${var.instance_type}"
+  instance_type               = "t2.micro"
   iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
   associate_public_ip_address = false
 
@@ -77,7 +77,7 @@ resource "aws_launch_configuration" "dp_web" {
   (Get-Content $original_file) | Foreach-Object {
       $_ -replace 'bucket_name', "${aws_s3_bucket.data_landing_bucket.id}" `
          -replace 'source_path', "${var.bucket_src_path}" `
-         -replace 'destination_path', "${var.local_dest_path}"
+         -replace 'destination_path', 'C:\tmp\'
       } | Set-Content $destination_file
   </powershell>
 EOF
