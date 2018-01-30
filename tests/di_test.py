@@ -34,10 +34,6 @@ class TestE2E(unittest.TestCase):
               key_name                    = "test"
               dp_web_private_ip           = "10.1.1.1"
               bucket_src_path             = "test"
-              local_dest_path             = "C:\tmp"
-              TCPPorts                    = ["135","443","1433"]
-              asg_min                     = 1
-              asg_max                     = 2
             }
         """
         self.result = Runner(self.snippet).result
