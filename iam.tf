@@ -72,7 +72,7 @@ EOF
 }
 
 resource "aws_iam_instance_profile" "data_ingest_landing_bucket" {
-  role = "${aws_iam_role.data_ingest_iam_role.arn}"
+  role = "${aws_iam_role.data_ingest_iam_role.name}"
 }
 
 resource "aws_iam_user" "data_ingest_landing" {
