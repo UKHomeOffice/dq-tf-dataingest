@@ -38,36 +38,19 @@ module "di_connectivity_tester_web" {
   private_ip      = "${var.di_connectivity_tester_web_ip}"
 
   tags = {
-    Name = "wherescape-${local.naming_suffix}"
+    Name = "wherescape-test-${local.naming_suffix}"
   }
 }
 
-module "di_elb" {
-  source = "github.com/UKHomeOffice/dq-tf-elb"
-
-  subnet_list = [
-    "${aws_subnet.data_ingest.id}",
-    "${aws_subnet.data_ingest_az2.id}",
-  ]
-
-  security_groups = ["${aws_security_group.di_web.id}"]
-  vpc_id          = "${var.appsvpc_id}"
-  asg_min         = 1
-  asg_max         = 2
-  TCPPorts        = ["135"]
-  launch_config   = "${aws_launch_configuration.dp_web.id}"
-}
-
-resource "aws_launch_configuration" "dp_web" {
-  security_groups = [
-    "${aws_security_group.di_web.id}",
-  ]
-
+resource "aws_instance" "di_web" {
   key_name                    = "${var.key_name}"
-  image_id                    = "${data.aws_ami.di_web.id}"
+  ami                         = "${data.aws_ami.di_web.id}"
   instance_type               = "t2.micro"
   iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
+  vpc_security_group_ids      = ["${aws_security_group.di_web.id}"]
   associate_public_ip_address = false
+  subnet_id                   = "${aws_subnet.data_ingest.id}"
+  private_ip                  = "${var.dp_web_private_ip}"
 
   user_data = <<EOF
   <powershell>
@@ -82,8 +65,8 @@ resource "aws_launch_configuration" "dp_web" {
   </powershell>
 EOF
 
-  lifecycle {
-    create_before_destroy = true
+  tags = {
+    Name = "wherescape-${local.naming_suffix}"
   }
 }
 
