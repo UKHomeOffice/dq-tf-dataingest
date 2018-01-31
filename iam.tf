@@ -88,7 +88,6 @@ resource "aws_iam_group" "data_ingest_landing" {
 }
 
 resource "aws_iam_group_policy" "data_ingest_landing" {
-  name  = "data_ingest_landing"
   group = "${aws_iam_group.data_ingest_landing.id}"
 
   policy = <<EOF
