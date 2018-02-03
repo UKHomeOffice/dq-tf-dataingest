@@ -13,3 +13,7 @@ output "iam_roles" {
 output "data_ingest_landing_user_arn" {
   value = "${aws_iam_user.data_ingest_landing.arn}"
 }
+
+output "win_instance_id" {
+  value = "${aws_instance.di_web.id}"
+}
