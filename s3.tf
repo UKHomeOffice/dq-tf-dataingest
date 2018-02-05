@@ -26,6 +26,11 @@ resource "aws_s3_bucket" "data_landing_bucket" {
     enabled = true
   }
 
+  logging {
+    target_bucket = "${var.logging_bucket_id}"
+    target_prefix = "data_landing_bucket/"
+  }
+
   tags = {
     Name = "s3-data-landing-bucket-${local.naming_suffix}"
   }
