@@ -32,7 +32,7 @@ class TestE2E(unittest.TestCase):
               naming_suffix               = "apps-preprod-dq"
               key_name                    = "test"
               dp_web_private_ip           = "10.1.1.1"
-              bucket_src_path             = "test"
+              logging_bucket_id           = "dq-bucket-name"
             }
         """
         self.result = Runner(self.snippet).result

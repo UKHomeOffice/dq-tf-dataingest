@@ -6,6 +6,7 @@ variable "data_ingest_rds_cidr_block" {}
 variable "peering_cidr_block" {}
 variable "az" {}
 variable "az2" {}
+variable "logging_bucket_id" {}
 
 variable "naming_suffix" {
   default     = false
@@ -35,9 +36,4 @@ variable "key_name" {
 variable "dp_web_private_ip" {
   default     = "10.1.6.100"
   description = "Web server address"
-}
-
-variable "bucket_src_path" {
-  description = "Source bucket object path"
-  default     = ""
 }

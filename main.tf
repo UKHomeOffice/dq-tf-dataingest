@@ -59,7 +59,7 @@ resource "aws_instance" "di_web" {
 
   (Get-Content $original_file) | Foreach-Object {
       $_ -replace 'bucket_name', "${aws_s3_bucket.data_landing_bucket.id}" `
-         -replace 'source_path', "${var.bucket_src_path}" `
+         -replace 'source_path', "dq-data-intgest-win/" `
          -replace 'destination_path', 'C:\tmp\'
       } | Set-Content $destination_file
   </powershell>
