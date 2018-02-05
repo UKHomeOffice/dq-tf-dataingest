@@ -62,7 +62,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.postgres"]["tags.Name"], "rds-postgres-dataingest-apps-preprod-dq")
 
     def test_name_suffix_ws_instance(self):
-        self.assertEqual(self.result['data_ingest']["aws_instance.di_web"]["tags.Name"], "wherescape-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_instance.di_web"]["tags.Name"], "ec2-win-dataingest-apps-preprod-dq")
 
 
 if __name__ == '__main__':

@@ -18,34 +18,10 @@ resource "aws_route_table_association" "data_ingest_rt_association" {
   route_table_id = "${var.route_table_id}"
 }
 
-module "di_connectivity_tester_db" {
-  source          = "github.com/ukhomeoffice/connectivity-tester-tf"
-  subnet_id       = "${aws_subnet.data_ingest.id}"
-  user_data       = "LISTEN_tcp=0.0.0.0:5432"
-  security_groups = ["${aws_security_group.di_db.id}"]
-  private_ip      = "${var.di_connectivity_tester_db_ip}"
-
-  tags = {
-    Name = "sql-server-${local.naming_suffix}"
-  }
-}
-
-module "di_connectivity_tester_web" {
-  source          = "github.com/ukhomeoffice/connectivity-tester-tf"
-  subnet_id       = "${aws_subnet.data_ingest.id}"
-  user_data       = "LISTEN_tcp=0.0.0.0:135 LISTEN_rdp=0.0.0.0:3389 CHECK_db=${var.di_connectivity_tester_db_ip}:5432"
-  security_groups = ["${aws_security_group.di_web.id}"]
-  private_ip      = "${var.di_connectivity_tester_web_ip}"
-
-  tags = {
-    Name = "wherescape-test-${local.naming_suffix}"
-  }
-}
-
 resource "aws_instance" "di_web" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.di_web.id}"
-  instance_type               = "t2.micro"
+  instance_type               = "t2.medium"
   iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
   vpc_security_group_ids      = ["${aws_security_group.di_web.id}"]
   associate_public_ip_address = false
@@ -66,7 +42,7 @@ resource "aws_instance" "di_web" {
 EOF
 
   tags = {
-    Name = "wherescape-${local.naming_suffix}"
+    Name = "ec2-win-${local.naming_suffix}"
   }
 }
 
