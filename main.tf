@@ -85,6 +85,36 @@ resource "aws_security_group" "di_web" {
     ]
   }
 
+  ingress {
+    from_port = 1
+    to_port   = 65535
+    protocol  = "tcp"
+
+    security_groups = [
+      "sg-5d177b35",
+    ]
+  }
+
+  ingress {
+    from_port = 1
+    to_port   = 65535
+    protocol  = "udp"
+
+    security_groups = [
+      "sg-5d177b35",
+    ]
+  }
+
+  ingress {
+    from_port = 0
+    to_port   = -1
+    protocol  = "icmp"
+
+    security_groups = [
+      "sg-5d177b35",
+    ]
+  }
+
   egress {
     from_port = 0
     to_port   = 0
