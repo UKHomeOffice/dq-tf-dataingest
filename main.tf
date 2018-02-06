@@ -34,9 +34,9 @@ resource "aws_instance" "di_web" {
   $destination_file = 'C:\scripts\data_transfer_config.bat'
 
   (Get-Content $original_file) | Foreach-Object {
-      $_ -replace 'bucket_name', "${aws_s3_bucket.data_landing_bucket.id}" `
-         -replace 'source_path', "dq-data-intgest-win/" `
-         -replace 'destination_path', 'C:\tmp\'
+      $_ -replace 's3-bucket', "${aws_s3_bucket.data_landing_bucket.id}" `
+         -replace 's3-path', 'dq-data-ingest-win/' `
+         -replace 'destination-path', 'E:\dq\s4_file_ingest\in'
       } | Set-Content $destination_file
   </powershell>
 EOF
