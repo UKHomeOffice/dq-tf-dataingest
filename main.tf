@@ -19,7 +19,7 @@ resource "aws_route_table_association" "data_ingest_rt_association" {
 }
 
 resource "aws_instance" "di_web" {
-  key_name                    = "${var.key_name}"
+  key_name                    = "instance"
   ami                         = "${data.aws_ami.di_web.id}"
   instance_type               = "t2.medium"
   iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"

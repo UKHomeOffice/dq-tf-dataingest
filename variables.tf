@@ -29,7 +29,7 @@ variable "di_connectivity_tester_web_ip" {
 }
 
 variable "key_name" {
-  default     = "test_instance"
+  default     = "instance"
   description = "Key name for login."
 }
 
