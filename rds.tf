@@ -74,7 +74,7 @@ resource "aws_db_instance" "postgres" {
   storage_type            = "gp2"
   engine                  = "postgres"
   engine_version          = "9.6.6"
-  instance_class          = "db.m4.10xlarge"
+  instance_class          = "db.m4.large"
   username                = "${random_string.username.result}"
   password                = "${random_string.password.result}"
   backup_window           = "00:00-01:00"
