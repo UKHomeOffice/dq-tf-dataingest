@@ -95,3 +95,47 @@ resource "aws_security_group" "di_web" {
     ]
   }
 }
+
+resource "aws_security_group" "di_web_linux" {
+  vpc_id = "${var.appsvpc_id}"
+
+  tags {
+    Name = "sg-web-linux-${local.naming_suffix}"
+  }
+
+  ingress {
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.data_pipe_apps_cidr_block}",
+      "${var.peering_cidr_block}",
+    ]
+  }
+
+  egress {
+    from_port = 0
+    to_port   = 0
+    protocol  = "-1"
+
+    cidr_blocks = [
+      "0.0.0.0/0",
+    ]
+  }
+}
+
+resource "aws_instance" "di_web_linux" {
+  key_name                    = "${var.key_name_linux}"
+  ami                         = "${data.aws_ami.di_web_linux.id}"
+  iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
+  instance_type               = "t2.micro"
+  vpc_security_group_ids      = ["${aws_security_group.di_web_linux.id}"]
+  associate_public_ip_address = false
+  subnet_id                   = "${aws_subnet.data_ingest.id}"
+  private_ip                  = "${var.dp_web_linux_private_ip}"
+
+  tags = {
+    Name = "linux-instance-${local.naming_suffix}"
+  }
+}
