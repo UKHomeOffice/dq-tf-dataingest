@@ -75,6 +75,16 @@ resource "aws_security_group" "di_web" {
     ]
   }
 
+  ingress {
+    from_port = 22
+    to_port   = 22
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.data_pipe_apps_cidr_block}",
+    ]
+  }
+
   egress {
     from_port = 0
     to_port   = 0
