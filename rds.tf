@@ -57,6 +57,16 @@ resource "aws_security_group" "di_db" {
     ]
   }
 
+  ingress {
+    from_port = 5432
+    to_port   = 5432
+    protocol  = "tcp"
+
+    security_groups = [
+      "sg-5d177b35",
+    ]
+  }
+
   egress {
     from_port = 0
     to_port   = 0
