@@ -33,7 +33,17 @@ variable "key_name" {
   description = "Key name for login."
 }
 
+variable "key_name_linux" {
+  default     = "test_instance"
+  description = "Key name for login."
+}
+
 variable "dp_web_private_ip" {
   default     = "10.1.6.100"
+  description = "Web server address"
+}
+
+variable "dp_web_linux_private_ip" {
+  default     = "10.1.6.200"
   description = "Web server address"
 }

@@ -16,6 +16,24 @@ resource "aws_iam_role" "data_ingest_iam_role" {
 EOF
 }
 
+resource "aws_iam_role" "data_ingest_linux_iam_role" {
+  assume_role_policy = <<EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": "ec2.amazonaws.com",
+        "Service": "s3.amazonaws.com"
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}
+EOF
+}
+
 resource "aws_iam_role_policy" "data_ingest_landing_bucket_policy" {
   role = "${aws_iam_role.data_ingest_iam_role.id}"
 
