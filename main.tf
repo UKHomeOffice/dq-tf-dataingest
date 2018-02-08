@@ -41,6 +41,10 @@ resource "aws_instance" "di_web" {
   </powershell>
 EOF
 
+  lifecycle {
+    prevent_destroy = true
+  }
+
   tags = {
     Name = "ec2-win-${local.naming_suffix}"
   }
@@ -129,7 +133,7 @@ resource "aws_instance" "di_web_linux" {
   key_name                    = "${var.key_name_linux}"
   ami                         = "${data.aws_ami.di_web_linux.id}"
   iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
-  instance_type               = "t2.micro"
+  instance_type               = "t2.medium"
   vpc_security_group_ids      = ["${aws_security_group.di_web_linux.id}"]
   associate_public_ip_address = false
   subnet_id                   = "${aws_subnet.data_ingest.id}"
