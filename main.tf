@@ -131,6 +131,23 @@ resource "aws_instance" "di_web_linux" {
   subnet_id                   = "${aws_subnet.data_ingest.id}"
   private_ip                  = "${var.dp_web_linux_private_ip}"
 
+  user_data = <<EOF
+#!/bin/bash
+
+if [ ! -f /bin/aws ]; then
+    curl https://bootstrap.pypa.io/get-pip.py | python
+    pip install awscli
+
+echo "export SFTP_USERNAME=`aws --region eu-west-2 ssm get-parameter --name mock_sftp_ftp_server_sftp_username --query 'Parameter.Value' --output text --with-decryption`
+export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption`
+export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name mock_FTP_SFTP_Server_Public_IP --query 'Parameter.Value' --output text --with-decryption`
+export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_landing_dir --query 'Parameter.Value' --output text --with-decryption`
+export username=`aws --region eu-west-2 ssm get-parameter --name mock_sftp_ftp_server_ftp_username --query 'Parameter.Value' --output text --with-decryption`
+export password=`aws --region eu-west-2 ssm get-parameter --name mock_sftp_ftp_server_ftpuser_password --query 'Parameter.Value' --output text --with-decryption`
+export server=`aws --region eu-west-2 ssm get-parameter --name mock_FTP_SFTP_Server_Public_IP --query 'Parameter.Value' --output text --with-decryption`" >> /etc/profile.d/nats_script_envs.sh
+
+EOF
+
   tags = {
     Name = "linux-instance-${local.naming_suffix}"
   }
