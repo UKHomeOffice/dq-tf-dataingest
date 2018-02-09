@@ -28,19 +28,6 @@ resource "aws_instance" "di_web" {
   subnet_id                   = "${aws_subnet.data_ingest.id}"
   private_ip                  = "${var.dp_web_private_ip}"
 
-  user_data = <<EOF
-  <powershell>
-  $original_file = 'C:\scripts\data_transfer.bat'
-  $destination_file = 'C:\scripts\data_transfer_config.bat'
-
-  (Get-Content $original_file) | Foreach-Object {
-      $_ -replace 's3-bucket', "${aws_s3_bucket.data_landing_bucket.id}" `
-         -replace 's3-path', 'dq-data-ingest-win' `
-         -replace 'destination-path', 'E:\dq\s4_file_ingest\in'
-      } | Set-Content $destination_file
-  </powershell>
-EOF
-
   lifecycle {
     prevent_destroy = true
   }
