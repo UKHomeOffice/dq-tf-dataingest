@@ -33,3 +33,11 @@ data "aws_ami" "di_web_linux" {
     "self",
   ]
 }
+
+data "aws_ssm_parameter" "data-landing-s3" {
+  name = "data-landing-s3"
+}
+
+data "aws_ssm_parameter" "data-landing-kms" {
+  name = "data-landing-kms"
+}
