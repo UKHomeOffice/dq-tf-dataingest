@@ -34,6 +34,7 @@ class TestE2E(unittest.TestCase):
               dp_web_private_ip           = "10.1.1.1"
               logging_bucket_id           = "dq-bucket-name"
               archive_bucket              = "dq-test"
+              archive_bucket_name         = "dq-test"
             }
         """
         self.result = Runner(self.snippet).result

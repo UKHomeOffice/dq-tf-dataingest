@@ -28,6 +28,46 @@ resource "aws_instance" "di_web" {
   subnet_id                   = "${aws_subnet.data_ingest.id}"
   private_ip                  = "${var.dp_web_private_ip}"
 
+  user_data = <<EOF
+  <powershell>
+  $original_file = 'C:\scripts\data_transfer.bat'
+  $destination_file = 'C:\scripts\data_transfer_config.bat'
+
+  (Get-Content $original_file) | Foreach-Object {
+      $_ -replace 's3-bucket', "${aws_s3_bucket.data_landing_bucket.id}" `
+         -replace 's3-path', 's4' `
+         -replace 'destination-path', 'E:\dq\nrt\s4_file_ingest\FTP_landingzone\done'
+      } | Set-Content $destination_file
+
+  $original_archive_file = 'C:\scripts\data_transfer_archive.bat'
+  $destination_archive_file = 'C:\scripts\data_transfer_archive_config.bat'
+
+  (Get-Content $original_archive_file) | Foreach-Object {
+      $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
+         -replace 's3-path', 's4/parsed' `
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\FTP_landingzone\done'
+      } | Set-Content $destination_archive_file
+
+  $original_raw_archive_file = 'C:\scripts\data_transfer_raw_archive.bat'
+  $destination_raw_archive_file = 'C:\scripts\data_transfer_raw_archive_config.bat'
+
+  (Get-Content $original_raw_archive_file) | Foreach-Object {
+      $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
+         -replace 's3-path', 's4/raw' `
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\raw_inprocess\done'
+      } | Set-Content $destination_raw_archive_file
+
+  $original_ga_file = 'C:\scripts\data_transfer_ga.bat'
+  $destination_ga_file = 'C:\scripts\data_transfer_ga_config.bat'
+
+  (Get-Content $original_ga_file) | Foreach-Object {
+      $_ -replace 's3-bucket', "${data.aws_ssm_parameter.ga_bucket.value}" `
+         -replace 's3-path', 's4' `
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\FTP_landingzone\done'
+      } | Set-Content $destination_ga_file
+  </powershell>
+EOF
+
   lifecycle {
     prevent_destroy = true
 
