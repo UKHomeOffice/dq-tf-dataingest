@@ -8,6 +8,7 @@ variable "az" {}
 variable "az2" {}
 variable "logging_bucket_id" {}
 variable "archive_bucket" {}
+variable "archive_bucket_name" {}
 
 variable "naming_suffix" {
   default     = false

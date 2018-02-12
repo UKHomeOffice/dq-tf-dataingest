@@ -41,3 +41,7 @@ data "aws_ssm_parameter" "data-landing-s3" {
 data "aws_ssm_parameter" "data-landing-kms" {
   name = "data-landing-kms"
 }
+
+data "aws_ssm_parameter" "ga_bucket" {
+  name = "ga_bucket_name"
+}
