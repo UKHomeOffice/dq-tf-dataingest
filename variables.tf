@@ -7,6 +7,7 @@ variable "peering_cidr_block" {}
 variable "az" {}
 variable "az2" {}
 variable "logging_bucket_id" {}
+variable "archive_bucket" {}
 
 variable "naming_suffix" {
   default     = false
