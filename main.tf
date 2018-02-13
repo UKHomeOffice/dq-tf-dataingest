@@ -45,7 +45,7 @@ resource "aws_instance" "di_web" {
   (Get-Content $original_archive_file) | Foreach-Object {
       $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
          -replace 's3-path', 's4/parsed' `
-         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\FTP_landingzone\done'
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\archive'
       } | Set-Content $destination_archive_file
 
   $original_raw_archive_file = 'C:\scripts\data_transfer_raw_archive.bat'
@@ -62,8 +62,10 @@ resource "aws_instance" "di_web" {
 
   (Get-Content $original_ga_file) | Foreach-Object {
       $_ -replace 's3-bucket', "${data.aws_ssm_parameter.ga_bucket.value}" `
+         -replace 's3-access-id', "${data.aws_ssm_parameter.ga_bucket_id.value}" `
+         -replace 's3-access-key', "${data.aws_ssm_parameter.ga_bucket_key.value}" `
          -replace 's3-path', 's4' `
-         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\FTP_landingzone\done'
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\ga_concat_output'
       } | Set-Content $destination_ga_file
   </powershell>
 EOF
