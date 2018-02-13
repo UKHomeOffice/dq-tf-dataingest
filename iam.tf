@@ -92,7 +92,18 @@ resource "aws_iam_role_policy" "data_ingest_landing_bucket_policy" {
         "s3:PutObject"
       ],
       "Resource": "${var.archive_bucket}/*"
-    }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey"
+        ],
+        "Resource": "${var.apps_buckets_kms_key}"
+      }
   ]
 }
 EOF
