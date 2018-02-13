@@ -39,23 +39,45 @@ resource "aws_instance" "di_web" {
          -replace 'destination-path', 'E:\dq\nrt\s4_file_ingest\FTP_landingzone\done'
       } | Set-Content $destination_file
 
-  $original_archive_file = 'C:\scripts\data_transfer_archive.bat'
-  $destination_archive_file = 'C:\scripts\data_transfer_archive_config.bat'
+  $original_parsed_archive_file = 'C:\scripts\data_transfer_archive.bat'
+  $destination_parsed_archive_file = 'C:\scripts\data_transfer_parsed_archive_config.bat'
 
-  (Get-Content $original_archive_file) | Foreach-Object {
+  (Get-Content $original_parsed_archive_file) | Foreach-Object {
       $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
          -replace 's3-path', 's4/parsed' `
-         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\archive'
-      } | Set-Content $destination_archive_file
+         -replace 'data-log-file', 'data-transfer-parsed.log' `
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\archive\parsed'
+      } | Set-Content $destination_parsed_archive_file
 
-  $original_raw_archive_file = 'C:\scripts\data_transfer_raw_archive.bat'
+  $original_raw_archive_file = 'C:\scripts\data_transfer_archive.bat'
   $destination_raw_archive_file = 'C:\scripts\data_transfer_raw_archive_config.bat'
 
   (Get-Content $original_raw_archive_file) | Foreach-Object {
       $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
          -replace 's3-path', 's4/raw' `
+         -replacxe 'data-log-file', 'data-transfer-raw.log' `
          -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\raw_inprocess\done'
       } | Set-Content $destination_raw_archive_file
+
+  $original_failed_archive_file = 'C:\scripts\data_transfer_archive.bat'
+  $destination_failed_archive_file = 'C:\scripts\data_transfer_failed_archive_config.bat'
+
+  (Get-Content $original_failed_archive_file) | Foreach-Object {
+      $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
+         -replace 's3-path', 's4/failed' `
+         -replace 'data-log-file', 'data-transfer-failed.log' `
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\archive\failed'
+      } | Set-Content $destination_failed_archive_file
+
+  $original_stored_archive_file = 'C:\scripts\data_transfer_archive.bat'
+  $destination_stored_archive_file = 'C:\scripts\data_transfer_stored_archive_config.bat'
+
+  (Get-Content $original_stored_archive_file) | Foreach-Object {
+      $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
+         -replace 's3-path', 's4/stored' `
+         -replace 'data-log-file', 'data-transfer-stored.log' `
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\archive\stored'
+      } | Set-Content $destination_stored_archive_file
 
   $original_ga_file = 'C:\scripts\data_transfer_ga.bat'
   $destination_ga_file = 'C:\scripts\data_transfer_ga_config.bat'
@@ -65,7 +87,7 @@ resource "aws_instance" "di_web" {
          -replace 's3-access-id', "${data.aws_ssm_parameter.ga_bucket_id.value}" `
          -replace 's3-access-key', "${data.aws_ssm_parameter.ga_bucket_key.value}" `
          -replace 's3-path', 's4' `
-         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\ga_concat_output'
+         -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\ga'
       } | Set-Content $destination_ga_file
   </powershell>
 EOF
