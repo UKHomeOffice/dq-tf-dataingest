@@ -178,13 +178,13 @@ if [ ! -f /bin/aws ]; then
     curl https://bootstrap.pypa.io/get-pip.py | python
     pip install awscli
 
-echo "export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name mock_sftp_ftp_server_sftp_username --query 'Parameter.Value' --output text --with-decryption`
+echo "export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_sftp_username --query 'Parameter.Value' --output text --with-decryption`
 export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption`
-export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name mock_FTP_SFTP_Server_Public_IP --query 'Parameter.Value' --output text --with-decryption`
+export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
 export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_landing_dir --query 'Parameter.Value' --output text --with-decryption`
-export username=`aws --region eu-west-2 ssm get-parameter --name mock_sftp_ftp_server_ftp_username --query 'Parameter.Value' --output text --with-decryption`
-export password=`aws --region eu-west-2 ssm get-parameter --name mock_sftp_ftp_server_ftpuser_password --query 'Parameter.Value' --output text --with-decryption`
-export server=`aws --region eu-west-2 ssm get-parameter --name mock_FTP_SFTP_Server_Public_IP --query 'Parameter.Value' --output text --with-decryption`" >> /etc/profile.d/nats_script_envs.sh
+export username=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_ftp_username --query 'Parameter.Value' --output text --with-decryption`
+export password=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_ftpuser_password --query 'Parameter.Value' --output text --with-decryption`
+export server=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`" >> /etc/profile.d/nats_script_envs.sh
 
 EOF
 

@@ -34,6 +34,35 @@ resource "aws_iam_role" "data_ingest_linux_iam_role" {
 EOF
 }
 
+resource "aws_iam_role_policy" "data_ingest_linux_parameter_store_iam_role" {
+  name_prefix = "instance_store_encryption_demo"
+  role        = "${aws_iam_role.data_ingest_iam_role.id}"
+
+  policy = <<EOF
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "ssm:PutParameter",
+                "ssm:GetParameter"
+            ],
+            "Resource": [
+              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_SFTPuser_private_key",
+              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_ftp_username",
+              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_ftpuser_password",
+              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_landing_dir",
+              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_public_ip",
+              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_sftp_username"
+            ]
+        }
+    ]
+}
+EOF
+}
+
 resource "aws_iam_role_policy" "data_ingest_landing_bucket_policy" {
   role = "${aws_iam_role.data_ingest_iam_role.id}"
 
