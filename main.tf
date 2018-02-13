@@ -179,7 +179,7 @@ if [ ! -f /bin/aws ]; then
     pip install awscli
 
 sudo -u wherescape mkdir -p ~wherescape/.ssh/
-sudo -u wherescape "aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -d > ~wherescape/.ssh/id_rsa"
+sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -d > ~wherescape/.ssh/id_rsa"
 chmod -R 600 ~wherescape/.ssh/
 chown -R wherescape:SSM /NATS/log
 
