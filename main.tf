@@ -180,7 +180,8 @@ if [ ! -f /bin/aws ]; then
 
 mkdir -p ~wherescape/.ssh/
 aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption > ~wherescape/.ssh/id_rsa
-
+chown -R wherescape ~wherescape/.ssh/
+chmod -R 600 ~wherescape/.ssh/
 echo "export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_sftp_username --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
 export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_landing_dir --query 'Parameter.Value' --output text --with-decryption`
