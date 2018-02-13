@@ -80,6 +80,18 @@ resource "aws_iam_role_policy" "data_ingest_landing_bucket_policy" {
         "Effect": "Allow",
         "Action": "kms:Decrypt",
         "Resource": "${data.aws_ssm_parameter.data-landing-kms.value}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": ["s3:ListBucket"],
+      "Resource": "${var.archive_bucket}"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:PutObject"
+      ],
+      "Resource": "${var.archive_bucket}/*"
     }
   ]
 }
