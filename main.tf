@@ -186,7 +186,7 @@ chown -R wherescape ~wherescape/.ssh/
 chmod -R 600 ~wherescape/.ssh/
 chown -R wherescape:SSM /NATS/log
 
-echo "export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_sftp_username --query 'Parameter.Value' --output text --with-decryption`
+sudo -u wherescape echo "export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_sftp_username --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
 export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_landing_dir --query 'Parameter.Value' --output text --with-decryption`
 export username=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_ftp_username --query 'Parameter.Value' --output text --with-decryption`
