@@ -35,8 +35,7 @@ EOF
 }
 
 resource "aws_iam_role_policy" "data_ingest_linux_parameter_store_iam_role" {
-  name_prefix = "instance_store_encryption_demo"
-  role        = "${aws_iam_role.data_ingest_iam_role.id}"
+  role = "${aws_iam_role.data_ingest_iam_role.id}"
 
   policy = <<EOF
 {
