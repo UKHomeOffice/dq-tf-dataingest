@@ -125,6 +125,17 @@ resource "aws_security_group" "di_web" {
   }
 
   ingress {
+    from_port = 445
+    to_port   = 445
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.data_pipe_apps_cidr_block}",
+      "${var.peering_cidr_block}",
+    ]
+  }
+
+  ingress {
     from_port = 3389
     to_port   = 3389
     protocol  = "tcp"
