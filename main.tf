@@ -213,7 +213,7 @@ if [ ! -f /bin/aws ]; then
     curl https://bootstrap.pypa.io/get-pip.py | python
     pip install awscli
 
-sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -d > ~wherescape/id_rsa"
+sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -D > ~/id_rsa"
 chown -R wherescape:SSM /NATS/log
 
 sudo -u wherescape echo "export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key_path --query 'Parameter.Value' --output text --with-decryption`
