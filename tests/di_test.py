@@ -67,6 +67,14 @@ class TestE2E(unittest.TestCase):
     def test_name_suffix_ws_instance(self):
         self.assertEqual(self.result['data_ingest']["aws_instance.di_web"]["tags.Name"], "ec2-win-dataingest-apps-preprod-dq")
 
+    def test_name_suffix_mds_subnet_group(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_subnet_group.mds_rds"]["tags.Name"], "mds-rds-subnet-group-dataingest-apps-preprod-dq")
+
+    def test_name_suffix_mds_rds(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_mssql_2012"]["tags.Name"], "mds-rds-mssql2012-dataingest-apps-preprod-dq")
+
+    def test_name_suffix_mds_db(self):
+        self.assertEqual(self.result['data_ingest']["aws_security_group.mds_db"]["tags.Name"], "sg-mds-db-dataingest-apps-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()
