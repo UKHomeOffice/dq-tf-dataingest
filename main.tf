@@ -49,13 +49,13 @@ resource "aws_instance" "di_web" {
          -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\archive\parsed'
       } | Set-Content $destination_parsed_archive_file
 
-  $original_raw_archive_file = 'C:\scripts\data_transfer_archive.bat'
+  $original_raw_archive_file = 'C:\scripts\data_transfer_raw_archive.bat'
   $destination_raw_archive_file = 'C:\scripts\data_transfer_raw_archive_config.bat'
 
   (Get-Content $original_raw_archive_file) | Foreach-Object {
       $_ -replace 's3-bucket', "${var.archive_bucket_name}" `
          -replace 's3-path', 's4/raw' `
-         -replacxe 'data-log-file', 'data-transfer-raw.log' `
+         -replace 'data-log-file', 'data-transfer-raw.log' `
          -replace 'source-path', 'E:\dq\nrt\s4_file_ingest\raw_inprocess\done'
       } | Set-Content $destination_raw_archive_file
 
