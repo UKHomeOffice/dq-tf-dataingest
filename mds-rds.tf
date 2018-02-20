@@ -51,7 +51,7 @@ resource "random_string" "mds_password" {
 }
 
 resource "aws_db_instance" "mds_mssql_2012" {
-  identifier              = "rds-mssql2012-${local.naming_suffix}"
+  identifier              = "mds-rds-mssql2012-${local.naming_suffix}"
   allocated_storage       = 200
   storage_type            = "gp2"
   engine                  = "sqlserver-se"
