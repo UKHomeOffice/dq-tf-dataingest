@@ -34,8 +34,8 @@ resource "aws_iam_role" "data_ingest_linux_iam_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "data_ingest_linux_parameter_store_iam_role" {
-  role = "${aws_iam_role.data_ingest_iam_role.id}"
+resource "aws_iam_role_policy" "data_ingest_linux_iam_role" {
+  role = "${aws_iam_role.data_ingest_linux_iam_role.id}"
 
   policy = <<EOF
 {
@@ -56,7 +56,30 @@ resource "aws_iam_role_policy" "data_ingest_linux_parameter_store_iam_role" {
               "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_public_ip",
               "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_sftp_username"
             ]
-        }
+        },
+        {
+              "Effect": "Allow",
+              "Action": ["s3:ListBucket"],
+              "Resource": "${var.archive_bucket}"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:PutObject"
+              ],
+              "Resource": "${var.archive_bucket}/*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "kms:Encrypt",
+                "kms:Decrypt",
+                "kms:ReEncrypt*",
+                "kms:GenerateDataKey*",
+                "kms:DescribeKey"
+                ],
+                "Resource": "${var.apps_buckets_kms_key}"
+              }
     ]
 }
 EOF
