@@ -156,6 +156,26 @@ resource "aws_security_group" "di_web" {
     ]
   }
 
+  ingress {
+    from_port = 1025
+    to_port   = 65535
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.dq_database_cidr_block}",
+    ]
+  }
+
+  ingress {
+    from_port = 1025
+    to_port   = 65535
+    protocol  = "udp"
+
+    cidr_blocks = [
+      "${var.dq_database_cidr_block}",
+    ]
+  }
+
   egress {
     from_port = 0
     to_port   = 0
