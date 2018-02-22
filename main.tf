@@ -195,6 +195,7 @@ resource "aws_security_group" "di_web_linux" {
     protocol  = "tcp"
 
     cidr_blocks = [
+      "${var.opssubnet_cidr_block}",
       "${var.data_pipe_apps_cidr_block}",
       "${var.peering_cidr_block}",
     ]
