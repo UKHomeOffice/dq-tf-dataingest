@@ -49,12 +49,14 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
                 "ssm:GetParameter"
             ],
             "Resource": [
-              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_SFTPuser_private_key",
-              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_ftp_username",
-              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_ftpuser_password",
-              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_landing_dir",
-              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_public_ip",
-              "arn:aws:ssm:eu-west-2:*:parameter/mock_ftp_sftp_server_sftp_username"
+              "arn:aws:ssm:eu-west-2:*:parameter/NATS_sftp_user_private_key",
+              "arn:aws:ssm:eu-west-2:*:parameter/NATS_sftp_user_private_key_path",
+              "arn:aws:ssm:eu-west-2:*:parameter/NATS_sftp_username",
+              "arn:aws:ssm:eu-west-2:*:parameter/NATS_sftp_server_public_ip",
+              "arn:aws:ssm:eu-west-2:*:parameter/NATS_sftp_landing_dir",
+              "arn:aws:ssm:eu-west-2:*:parameter/ADT_ftp_username",
+              "arn:aws:ssm:eu-west-2:*:parameter/ADT_ftp_user_password",
+              "arn:aws:ssm:eu-west-2:*:parameter/ADT_ftp_server_public_ip"
             ]
         },
         {
