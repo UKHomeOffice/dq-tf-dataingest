@@ -9,7 +9,7 @@ data "aws_ami" "di_web" {
     name = "name"
 
     values = [
-      "dq-data-ingest-server 2018-02-08T14-36-09Z*",
+      "dq-data-ingest-server*",
     ]
   }
 
