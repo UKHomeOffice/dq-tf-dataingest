@@ -196,7 +196,18 @@ resource "aws_iam_group_policy" "data_ingest_landing" {
       "Action": "s3:PutObject",
       "Effect": "Allow",
       "Resource": "${aws_s3_bucket.data_landing_bucket.arn}/*"
-    }
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "kms:Encrypt",
+        "kms:Decrypt",
+        "kms:ReEncrypt*",
+        "kms:GenerateDataKey*",
+        "kms:DescribeKey"
+        ],
+        "Resource": "${aws_kms_key.data_landing_bucket_key.arn}"
+      }
   ]
 }
 EOF
