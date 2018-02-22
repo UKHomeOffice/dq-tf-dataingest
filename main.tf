@@ -21,7 +21,7 @@ resource "aws_route_table_association" "data_ingest_rt_association" {
 resource "aws_instance" "di_web" {
   key_name                    = "${var.key_name}"
   ami                         = "${data.aws_ami.di_web.id}"
-  instance_type               = "t2.medium"
+  instance_type               = "t2.xlarge"
   iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
   vpc_security_group_ids      = ["${aws_security_group.di_web.id}"]
   associate_public_ip_address = false
@@ -98,6 +98,7 @@ EOF
     ignore_changes = [
       "user_data",
       "ami_name",
+      "instance_type",
     ]
   }
 
