@@ -34,7 +34,7 @@ resource "aws_iam_role" "data_ingest_linux_iam_role" {
 EOF
 }
 
-resource "aws_iam_role_policy" "data_ingest_linux_iam_role" {
+resource "aws_iam_role_policy" "data_ingest_linux_iam" {
   role = "${aws_iam_role.data_ingest_linux_iam_role.id}"
 
   policy = <<EOF
@@ -162,6 +162,10 @@ EOF
 
 resource "aws_iam_instance_profile" "data_ingest_landing_bucket" {
   role = "${aws_iam_role.data_ingest_iam_role.name}"
+}
+
+resource "aws_iam_instance_profile" "data_ingest_linux" {
+  role = "${aws_iam_role.data_ingest_linux_iam_role.name}"
 }
 
 resource "aws_iam_user" "data_ingest_landing" {
