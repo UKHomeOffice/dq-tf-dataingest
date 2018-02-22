@@ -220,8 +220,8 @@ resource "aws_security_group" "di_web_linux" {
 resource "aws_instance" "di_web_linux" {
   key_name                    = "${var.key_name_linux}"
   ami                         = "${data.aws_ami.di_web_linux.id}"
-  iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_landing_bucket.id}"
-  instance_type               = "t2.medium"
+  iam_instance_profile        = "${aws_iam_instance_profile.data_ingest_linux.id}"
+  instance_type               = "t2.large"
   vpc_security_group_ids      = ["${aws_security_group.di_web_linux.id}"]
   associate_public_ip_address = false
   subnet_id                   = "${aws_subnet.data_ingest.id}"
@@ -234,16 +234,16 @@ if [ ! -f /bin/aws ]; then
     curl https://bootstrap.pypa.io/get-pip.py | python
     pip install awscli
 
-sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -D > ~/id_rsa"
+sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -D > ~/id_rsa"
 chown -R wherescape:SSM /NATS/log
 
-sudo -u wherescape echo "export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_SFTPuser_private_key_path --query 'Parameter.Value' --output text --with-decryption`
-export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_sftp_username --query 'Parameter.Value' --output text --with-decryption`
-export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
-export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_landing_dir --query 'Parameter.Value' --output text --with-decryption`
-export username=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_ftp_username --query 'Parameter.Value' --output text --with-decryption`
-export password=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_ftpuser_password --query 'Parameter.Value' --output text --with-decryption`
-export server=`aws --region eu-west-2 ssm get-parameter --name mock_ftp_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/nats_script_envs.sh
+sudo -u wherescape echo "export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key_path --query 'Parameter.Value' --output text --with-decryption`
+export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_username --query 'Parameter.Value' --output text --with-decryption`
+export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
+export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_landing_dir --query 'Parameter.Value' --output text --with-decryption`
+export username=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_username --query 'Parameter.Value' --output text --with-decryption`
+export password=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_user_password --query 'Parameter.Value' --output text --with-decryption`
+export server=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/nats_script_envs.sh
 
 chmod 755 /etc/profile.d/nats_script_envs.sh
 sudo -u wherescape /etc/profile.d/nats_script_envs.sh
