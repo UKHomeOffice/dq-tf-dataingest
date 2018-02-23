@@ -234,9 +234,13 @@ resource "aws_instance" "di_web_linux" {
 if [ ! -f /bin/aws ]; then
     curl https://bootstrap.pypa.io/get-pip.py | python
     pip install awscli
+fi
 
-sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -D > ~/id_rsa"
-chown -R wherescape:SSM /NATS/log
+sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/id_rsa"
+fi
+
+sudo touch /etc/profile.d/nats_script_envs.sh
+sudo setfacl -m u:wherescape:rwx /etc/profile.d/nats_script_envs.sh
 
 sudo touch /etc/profile.d/nats_script_envs.sh
 sudo setfacl -m u:wherescape:rwx /etc/profile.d/nats_script_envs.sh
@@ -252,6 +256,8 @@ export GA_BUCKET_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name 
 export GA_BUCKET_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name gait_secret_key --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/nats_script_envs.sh
 
 su -c "/etc/profile.d/nats_script_envs.sh" - wherescape
+
+fi
 
 EOF
 
