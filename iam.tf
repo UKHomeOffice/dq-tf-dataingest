@@ -56,7 +56,9 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/NATS_sftp_landing_dir",
               "arn:aws:ssm:eu-west-2:*:parameter/ADT_ftp_username",
               "arn:aws:ssm:eu-west-2:*:parameter/ADT_ftp_user_password",
-              "arn:aws:ssm:eu-west-2:*:parameter/ADT_ftp_server_public_ip"
+              "arn:aws:ssm:eu-west-2:*:parameter/ADT_ftp_server_public_ip",
+              "arn:aws:ssm:eu-west-2:*:parameter/gait_access_key",
+              "arn:aws:ssm:eu-west-2:*:parameter/gait_secret_key"
             ]
         },
         {
