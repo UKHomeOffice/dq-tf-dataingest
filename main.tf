@@ -238,6 +238,9 @@ if [ ! -f /bin/aws ]; then
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key --query 'Parameter.Value' --output text --with-decryption | base64 -D > ~/id_rsa"
 chown -R wherescape:SSM /NATS/log
 
+sudo touch /etc/profile.d/nats_script_envs.sh
+sudo setfacl -m u:wherescape:rwx /etc/profile.d/nats_script_envs.sh
+
 sudo -u wherescape echo "export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key_path --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_username --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
@@ -246,8 +249,7 @@ export username=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_usernam
 export password=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_user_password --query 'Parameter.Value' --output text --with-decryption`
 export server=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/nats_script_envs.sh
 
-chmod 755 /etc/profile.d/nats_script_envs.sh
-sudo -u wherescape /etc/profile.d/nats_script_envs.sh
+su -c "/etc/profile.d/nats_script_envs.sh" - wherescape
 
 EOF
 
