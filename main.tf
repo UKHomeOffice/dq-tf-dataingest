@@ -238,8 +238,8 @@ fi
 
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/id_rsa"
 
-sudo touch /etc/profile.d/nats_script_envs.sh
-sudo setfacl -m u:wherescape:rwx /etc/profile.d/nats_script_envs.sh
+sudo touch /etc/profile.d/script_envs.sh
+sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
 
 sudo -u wherescape echo "export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key_path --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_username --query 'Parameter.Value' --output text --with-decryption`
@@ -251,10 +251,12 @@ export server=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_server_pu
 export GA_BUCKET_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name gait_access_key --query 'Parameter.Value' --output text --with-decryption`
 export GA_BUCKET_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name gait_secret_key --query 'Parameter.Value' --output text --with-decryption`
 export GA_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name ga_bucket_name --query 'Parameter.Value' --output text --with-decryption`
-export DATA_ARCHIVE_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name data_archive_bucket_name --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/nats_script_envs.sh
+export DATA_ARCHIVE_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name data_archive_bucket_name --query 'Parameter.Value' --output text --with-decryption`
+export MAYTECH_HOST=`aws --region eu-west-2 ssm get-parameter --name maytech_host --query 'Parameter.Value' --output text --with-decryption`
+export MAYTECH_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/script_envs.sh
 
 
-su -c "/etc/profile.d/nats_script_envs.sh" - wherescape
+su -c "/etc/profile.d/script_envs.sh" - wherescape
 
 EOF
 
