@@ -249,7 +249,10 @@ export username=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_usernam
 export password=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_user_password --query 'Parameter.Value' --output text --with-decryption`
 export server=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
 export GA_BUCKET_ACCESS_KEY_ID=`aws --region eu-west-2 ssm get-parameter --name gait_access_key --query 'Parameter.Value' --output text --with-decryption`
-export GA_BUCKET_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name gait_secret_key --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/nats_script_envs.sh
+export GA_BUCKET_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --name gait_secret_key --query 'Parameter.Value' --output text --with-decryption`
+export GA_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name ga_bucket_name --query 'Parameter.Value' --output text`
+export DATA_ARCHIVE_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name data_archive_bucket_name --query 'Parameter.Value' --output text`" > /etc/profile.d/nats_script_envs.sh
+
 
 su -c "/etc/profile.d/nats_script_envs.sh" - wherescape
 
