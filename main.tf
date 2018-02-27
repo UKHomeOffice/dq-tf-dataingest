@@ -253,7 +253,9 @@ export GA_BUCKET_SECRET_ACCESS_KEY=`aws --region eu-west-2 ssm get-parameter --n
 export GA_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name ga_bucket_name --query 'Parameter.Value' --output text --with-decryption`
 export DATA_ARCHIVE_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name data_archive_bucket_name --query 'Parameter.Value' --output text --with-decryption`
 export MAYTECH_HOST=`aws --region eu-west-2 ssm get-parameter --name maytech_host --query 'Parameter.Value' --output text --with-decryption`
-export MAYTECH_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user --query 'Parameter.Value' --output text --with-decryption`" > /etc/profile.d/script_envs.sh
+export MAYTECH_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user --query 'Parameter.Value' --output text --with-decryption`
+export MAYTECH_OAG_LANDING_DIR="/"
+export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/id_rsa"" > /etc/profile.d/script_envs.sh
 
 
 su -c "/etc/profile.d/script_envs.sh" - wherescape
