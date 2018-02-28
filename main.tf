@@ -237,6 +237,7 @@ if [ ! -f /bin/aws ]; then
 fi
 
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/id_rsa"
+sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name maytech_preprod_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/maytech_preprod_id_rsa"
 
 sudo touch /etc/profile.d/script_envs.sh
 sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
@@ -255,7 +256,7 @@ export DATA_ARCHIVE_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name
 export MAYTECH_HOST=`aws --region eu-west-2 ssm get-parameter --name maytech_host --query 'Parameter.Value' --output text --with-decryption`
 export MAYTECH_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user --query 'Parameter.Value' --output text --with-decryption`
 export MAYTECH_OAG_LANDING_DIR="/"
-export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/id_rsa"" > /etc/profile.d/script_envs.sh
+export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/maytech_preprod_id_rsa"" > /etc/profile.d/script_envs.sh
 
 
 su -c "/etc/profile.d/script_envs.sh" - wherescape
