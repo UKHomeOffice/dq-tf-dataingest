@@ -259,6 +259,7 @@ export MAYTECH_OAG_LANDING_DIR="/"
 export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/maytech_preprod_id_rsa"" > /etc/profile.d/script_envs.sh
 
 
+
 su -c "/etc/profile.d/script_envs.sh" - wherescape
 
 EOF
