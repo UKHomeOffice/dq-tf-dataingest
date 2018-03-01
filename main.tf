@@ -243,7 +243,8 @@ sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name ssh_pu
 sudo touch /etc/profile.d/script_envs.sh
 sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
 
-sudo -u wherescape echo "export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key_path --query 'Parameter.Value' --output text --with-decryption`
+sudo -u wherescape echo "
+export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key_path --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_username --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
 export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_landing_dir --query 'Parameter.Value' --output text --with-decryption`
@@ -259,7 +260,8 @@ export MAYTECH_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_use
 export MAYTECH_OAG_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name maytech_oag_landing_dir --query 'Parameter.Value' --output text --with-decryption`
 export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/maytech_preprod_id_rsa"
 export MVT_SCHEMA_SSM_USERNAME="ssm"
-export MVT_SCHEMA_SSM_PASSWORD="`aws --region eu-west-2 ssm get-parameter --name mvt_schema_ssm_password --query 'Parameter.Value' --output text --with-decryption`"" > /etc/profile.d/script_envs.sh
+export MVT_SCHEMA_SSM_PASSWORD=`aws --region eu-west-2 ssm get-parameter --name mvt_schema_ssm_password --query 'Parameter.Value' --output text --with-decryption | base64 --decode`
+" > /etc/profile.d/script_envs.sh
 
 su -c "/etc/profile.d/script_envs.sh" - wherescape
 
