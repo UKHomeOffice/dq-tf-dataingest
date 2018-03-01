@@ -261,6 +261,10 @@ export MAYTECH_OAG_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name 
 export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/maytech_preprod_id_rsa"
 export MVT_SCHEMA_SSM_USERNAME="ssm"
 export MVT_SCHEMA_SSM_PASSWORD=`aws --region eu-west-2 ssm get-parameter --name mvt_schema_ssm_password --query 'Parameter.Value' --output text --with-decryption | base64 --decode`
+export RDS_POSTGRES_DATA_INGEST_HOST_NAME=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-hostname --query 'Parameter.Value' --output text --with-decryption`
+export RDS_POSTGRES_DATA_INGEST_NAME=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-name --query 'Parameter.Value' --output text --with-decryption`
+export RDS_POSTGRES_DATA_INGEST_PASSWORD=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-password --query 'Parameter.Value' --output text --with-decryption`
+export RDS_POSTGRES_DATA_INGEST_USERNAME=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-username --query 'Parameter.Value' --output text --with-decryption`
 " > /etc/profile.d/script_envs.sh
 
 su -c "/etc/profile.d/script_envs.sh" - wherescape

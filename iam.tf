@@ -66,7 +66,11 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/maytech_preprod_ssh_private_key",
               "arn:aws:ssm:eu-west-2:*:parameter/ssh_public_key_ssm_wherescape",
               "arn:aws:ssm:eu-west-2:*:parameter/maytech_oag_landing_dir",
-              "arn:aws:ssm:eu-west-2:*:parameter/mvt_schema_ssm_password"
+              "arn:aws:ssm:eu-west-2:*:parameter/mvt_schema_ssm_password",
+              "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-hostname",
+              "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-name",
+              "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-password",
+              "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-username"
             ]
         },
         {
