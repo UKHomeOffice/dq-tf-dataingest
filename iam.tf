@@ -70,7 +70,8 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-hostname",
               "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-name",
               "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-password",
-              "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-username"
+              "arn:aws:ssm:eu-west-2:*:parameter/rds-postgres-dataingest-username",
+              "arn:aws:ssm:eu-west-2:*:parameter/job50_ssm_to_gp_ssh_private_key"
             ]
         },
         {
