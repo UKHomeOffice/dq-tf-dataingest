@@ -236,18 +236,18 @@ if [ ! -f /bin/aws ]; then
     pip install awscli
 fi
 
-sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/id_rsa"
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name maytech_preprod_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/maytech_preprod_id_rsa"
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name ssh_public_key_ssm_wherescape  --query 'Parameter.Value' --output text --with-decryption > ~/.ssh/authorized_keys"
-sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name job50_ssm_to_gp_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/.ssh/job50_ssm_to_gp_ssh_id_rsa"
+sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name job50_ssm_to_gp_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/.ssh/id_rsa"
+sudo chmod 600 ~/.ssh/id_rsa
 
 sudo touch /etc/profile.d/script_envs.sh
 sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
 
 sudo -u wherescape echo "
-export SSH_PRIVATE_KEY=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_user_private_key_path --query 'Parameter.Value' --output text --with-decryption`
-export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_username --query 'Parameter.Value' --output text --with-decryption`
-export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_server_public_ip --query 'Parameter.Value' --output text --with-decryption`
+export SSH_PRIVATE_KEY="/home/wherescape/maytech_preprod_id_rsa"
+export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user --query 'Parameter.Value' --output text --with-decryption`
+export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name maytech_host --query 'Parameter.Value' --output text --with-decryption`
 export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_landing_dir --query 'Parameter.Value' --output text --with-decryption`
 export username=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_username --query 'Parameter.Value' --output text --with-decryption`
 export password=`aws --region eu-west-2 ssm get-parameter --name ADT_ftp_user_password --query 'Parameter.Value' --output text --with-decryption`
