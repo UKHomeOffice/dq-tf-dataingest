@@ -239,7 +239,7 @@ fi
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name maytech_preprod_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/maytech_preprod_id_rsa"
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name ssh_public_key_ssm_wherescape  --query 'Parameter.Value' --output text --with-decryption > ~/.ssh/authorized_keys"
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name job50_ssm_to_gp_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/.ssh/id_rsa"
-sudo chmod 600 ~/.ssh/id_rsa
+sudo chmod 600 /home/wherescape/.ssh/id_rsa
 
 sudo touch /etc/profile.d/script_envs.sh
 sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
