@@ -74,7 +74,8 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/job50_ssm_to_gp_ssh_private_key",
               "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_username",
               "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_user_password",
-              "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_server_public_ip"
+              "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_server_public_ip",
+              "arn:aws:ssm:eu-west-2:*:parameter/addomainjoin"
 
             ]
         },
