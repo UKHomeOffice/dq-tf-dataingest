@@ -286,4 +286,8 @@ EOF
   tags = {
     Name = "linux-instance-${local.naming_suffix}"
   }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
