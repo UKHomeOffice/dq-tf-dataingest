@@ -101,8 +101,48 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
                 "kms:DescribeKey"
                 ],
                 "Resource": "${var.apps_buckets_kms_key}"
-              }
-    ]
+            }
+            {
+              "Effect": "Allow",
+              "Action": ["s3:ListBucket"],
+              "Resource": "${aws_s3_bucket.data_landing_bucket.arn}"
+            },
+            {
+              "Effect": "Allow",
+              "Action": [
+                "s3:GetObject",
+                "s3:ListObject",
+                "s3:DeleteObject"
+              ],
+              "Resource": "${aws_s3_bucket.data_landing_bucket.arn}/*"
+            },
+            {
+              "Effect": "Allow",
+              "Action": "kms:Decrypt",
+              "Resource": "${aws_kms_key.data_landing_bucket_key.arn}"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:ListBucket"
+                ],
+                "Resource": "${data.aws_ssm_parameter.data-landing-s3.value}"
+            },
+            {
+                "Effect": "Allow",
+                "Action": [
+                    "s3:GetObject",
+                    "s3:ListObject",
+                    "s3:DeleteObject"
+                ],
+                "Resource": "${data.aws_ssm_parameter.data-landing-s3.value}/*"
+            },
+            {
+                "Effect": "Allow",
+                "Action": "kms:Decrypt",
+                "Resource": "${data.aws_ssm_parameter.data-landing-kms.value}"
+            },
+        ]
 }
 EOF
 }
