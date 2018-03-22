@@ -101,7 +101,7 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
                 "kms:DescribeKey"
                 ],
                 "Resource": "${var.apps_buckets_kms_key}"
-            }
+            },
             {
               "Effect": "Allow",
               "Action": ["s3:ListBucket"],
