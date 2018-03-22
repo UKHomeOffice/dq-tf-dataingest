@@ -141,7 +141,7 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
                 "Effect": "Allow",
                 "Action": "kms:Decrypt",
                 "Resource": "${data.aws_ssm_parameter.data-landing-kms.value}"
-            },
+            }
         ]
 }
 EOF
