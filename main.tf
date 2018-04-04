@@ -289,5 +289,9 @@ EOF
 
   lifecycle {
     prevent_destroy = true
+
+    ignore_changes = [
+      "ami",
+    ]
   }
 }
