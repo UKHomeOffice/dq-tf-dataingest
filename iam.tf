@@ -164,7 +164,8 @@ resource "aws_iam_role_policy" "data_ingest_landing_bucket_policy" {
       "Action": [
         "s3:GetObject",
         "s3:ListObject",
-        "s3:DeleteObject"
+        "s3:DeleteObject",
+        "s3:PutObject"
       ],
       "Resource": "${aws_s3_bucket.data_landing_bucket.arn}/*"
     },
@@ -185,7 +186,8 @@ resource "aws_iam_role_policy" "data_ingest_landing_bucket_policy" {
         "Action": [
             "s3:GetObject",
             "s3:ListObject",
-            "s3:DeleteObject"
+            "s3:DeleteObject",
+            "s3:PutObject"
         ],
         "Resource": "${data.aws_ssm_parameter.data-landing-s3.value}/*"
     },
