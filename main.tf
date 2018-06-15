@@ -246,7 +246,7 @@ sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
 
 sudo -u wherescape echo "
 export SSH_PRIVATE_KEY="/home/wherescape/maytech_preprod_id_rsa"
-export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user --query 'Parameter.Value' --output text --with-decryption`
+export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user_nats --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name maytech_host --query 'Parameter.Value' --output text --with-decryption`
 export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_landing_dir --query 'Parameter.Value' --output text --with-decryption`
 export username=`aws --region eu-west-2 ssm get-parameter --name ACL_ftp_username --query 'Parameter.Value' --output text --with-decryption`
