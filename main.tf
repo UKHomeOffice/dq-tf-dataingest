@@ -236,16 +236,17 @@ if [ ! -f /bin/aws ]; then
     pip install awscli
 fi
 
-sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name maytech_preprod_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/maytech_preprod_id_rsa"
+sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name maytech_prod_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/maytech_prod_id_rsa"
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name ssh_public_key_ssm_wherescape  --query 'Parameter.Value' --output text --with-decryption > ~/.ssh/authorized_keys"
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name job50_ssm_to_gp_ssh_private_key --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/.ssh/id_rsa"
 sudo chmod 600 /home/wherescape/.ssh/id_rsa
+sudo chmod 600 /home/wherescape/maytech_prod_id_rsa
 
 sudo touch /etc/profile.d/script_envs.sh
 sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
 
 sudo -u wherescape echo "
-export SSH_PRIVATE_KEY="/home/wherescape/maytech_preprod_id_rsa"
+export SSH_PRIVATE_KEY="/home/wherescape/maytech_prod_id_rsa"
 export SSH_REMOTE_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user_nats --query 'Parameter.Value' --output text --with-decryption`
 export SSH_REMOTE_HOST=`aws --region eu-west-2 ssm get-parameter --name maytech_host --query 'Parameter.Value' --output text --with-decryption`
 export SSH_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name NATS_sftp_landing_dir --query 'Parameter.Value' --output text --with-decryption`
@@ -259,7 +260,7 @@ export DATA_ARCHIVE_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name
 export MAYTECH_HOST=`aws --region eu-west-2 ssm get-parameter --name maytech_host --query 'Parameter.Value' --output text --with-decryption`
 export MAYTECH_USER=`aws --region eu-west-2 ssm get-parameter --name maytech_user --query 'Parameter.Value' --output text --with-decryption`
 export MAYTECH_OAG_LANDING_DIR=`aws --region eu-west-2 ssm get-parameter --name maytech_oag_landing_dir --query 'Parameter.Value' --output text --with-decryption`
-export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/maytech_preprod_id_rsa"
+export MAYTECH_OAG_PRIVATE_KEY_PATH="/home/wherescape/maytech_prod_id_rsa"
 export MVT_SCHEMA_SSM_USERNAME="ssm"
 export MVT_SCHEMA_SSM_PASSWORD=`aws --region eu-west-2 ssm get-parameter --name mvt_schema_ssm_password --query 'Parameter.Value' --output text --with-decryption`
 export RDS_POSTGRES_DATA_INGEST_HOST_NAME=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-hostname --query 'Parameter.Value' --output text --with-decryption`
