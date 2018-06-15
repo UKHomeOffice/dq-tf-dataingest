@@ -62,6 +62,7 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/data_archive_bucket_name",
               "arn:aws:ssm:eu-west-2:*:parameter/maytech_host",
               "arn:aws:ssm:eu-west-2:*:parameter/maytech_user",
+              "arn:aws:ssm:eu-west-2:*:parameter/maytech_user_nats",
               "arn:aws:ssm:eu-west-2:*:parameter/ga_bucket_name",
               "arn:aws:ssm:eu-west-2:*:parameter/maytech_preprod_ssh_private_key",
               "arn:aws:ssm:eu-west-2:*:parameter/ssh_public_key_ssm_wherescape",
