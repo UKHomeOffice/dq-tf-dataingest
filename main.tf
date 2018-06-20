@@ -282,6 +282,13 @@ expect -c "spawn realm join -U domain.join@dq.homeoffice.gov.uk DQ.HOMEOFFICE.GO
 systemctl restart sssd.service
 reboot
 
+
+sudo -i
+mkfs.xfs /dev/xvdb
+mount /dev/xvdb /var
+echo “/dev/xvdb               /var             xfs    defaults         0 0” >> /etc/fstab
+
+
 EOF
 
   tags = {
