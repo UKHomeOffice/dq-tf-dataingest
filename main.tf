@@ -285,8 +285,9 @@ reboot
 
 sudo -i
 mkfs.xfs /dev/xvdb
+mkdir /var
 mount /dev/xvdb /var
-echo “/dev/xvdb               /var             xfs    defaults         0 0” >> /etc/fstab
+echo '/dev/xvdb               /var             xfs    defaults         0 0' >> /etc/fstab
 
 
 EOF
