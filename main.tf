@@ -280,8 +280,6 @@ systemctl start sssd.service
 echo "%Domain\\ Admins@dq.homeoffice.gov.uk ALL=(ALL:ALL) ALL" >>  /etc/sudoers
 expect -c "spawn realm join -U domain.join@dq.homeoffice.gov.uk DQ.HOMEOFFICE.GOV.UK; expect \"*?assword for domain.join@DQ.HOMEOFFICE.GOV.UK:*\"; send -- \"$DOMAIN_JOIN\r\" ; expect eof"
 systemctl restart sssd.service
-reboot
-
 
 sudo -i
 mkfs.xfs /dev/xvdb
@@ -290,9 +288,7 @@ mount /dev/xvdb /mnt/var/log
 rsync -a /var/log/ /mnt/var/log
 echo '/dev/xvdb /var/log xfs defaults 0 0' >> /etc/fstab
 umount /mnt/var/log/
-shutdown -r now
-
-
+reboot
 EOF
 
   tags = {
