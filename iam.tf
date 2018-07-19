@@ -378,6 +378,11 @@ resource "aws_iam_group_policy" "dq_dacc_data_ingest_landing" {
       "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}/*"
     },
     {
+      "Action": "s3:DeleteObject",
+      "Effect": "Allow",
+      "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}/*"
+    },
+    {
       "Effect": "Allow",
       "Action": [
         "kms:Encrypt",
