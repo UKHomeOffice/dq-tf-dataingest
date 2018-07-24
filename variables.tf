@@ -15,7 +15,7 @@ variable "dq_database_cidr_block" {
   type = "list"
 }
 
-variable "dq_secondary_database_cidr_block" {
+variable "dq_database_cidr_block_secondary" {
   type = "list"
 }
 

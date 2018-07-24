@@ -164,7 +164,7 @@ resource "aws_security_group" "di_web" {
 
     cidr_blocks = [
       "${var.dq_database_cidr_block}",
-      "${var.dq_secondary_database_cidr_block}",
+      "${var.dq_database_cidr_block_secondary}",
     ]
   }
 
@@ -175,7 +175,7 @@ resource "aws_security_group" "di_web" {
 
     cidr_blocks = [
       "${var.dq_database_cidr_block}",
-      "${var.dq_secondary_database_cidr_block}",
+      "${var.dq_database_cidr_block_secondary}",
     ]
   }
 
