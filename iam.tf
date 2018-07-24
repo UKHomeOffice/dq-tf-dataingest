@@ -277,6 +277,11 @@ resource "aws_iam_group_policy" "data_ingest_landing" {
       "Resource": "${aws_s3_bucket.data_landing_bucket.arn}/*"
     },
     {
+      "Action": "s3:CopyObject",
+      "Effect": "Allow",
+      "Resource": "${aws_s3_bucket.data_landing_bucket.arn}/*"
+    },
+    {
       "Effect": "Allow",
       "Action": [
         "kms:Encrypt",
