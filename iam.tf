@@ -264,7 +264,7 @@ resource "aws_iam_group_policy" "data_ingest_landing" {
     {
       "Action": "s3:ListBucket",
       "Effect": "Allow",
-      "Resource": "${aws_s3_bucket.data_landing_bucket.arn}"
+      "Resource": "${aws_s3_bucket.data_landing_bucket.arn}/*"
     },
     {
       "Action": "s3:PutObject",
@@ -322,7 +322,7 @@ resource "aws_iam_group_policy" "dacc_data_ingest_landing" {
     {
       "Action": "s3:ListBucket",
       "Effect": "Allow",
-      "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}"
+      "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}/*"
     },
     {
       "Action": "s3:GetObject",
