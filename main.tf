@@ -269,6 +269,7 @@ export RDS_POSTGRES_DATA_INGEST_HOST_NAME=`aws --region eu-west-2 ssm get-parame
 export RDS_POSTGRES_DATA_INGEST_NAME=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-name --query 'Parameter.Value' --output text --with-decryption`
 export RDS_POSTGRES_DATA_INGEST_PASSWORD=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-password --query 'Parameter.Value' --output text --with-decryption`
 export RDS_POSTGRES_DATA_INGEST_USERNAME=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-username --query 'Parameter.Value' --output text --with-decryption`
+export DATA_LANDING_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name data_landing_bucket_name --query 'Parameter.Value' --output text --with-decryption`
 " > /etc/profile.d/script_envs.sh
 
 su -c "/etc/profile.d/script_envs.sh" - wherescape

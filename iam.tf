@@ -77,8 +77,8 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_username",
               "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_user_password",
               "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_server_public_ip",
-              "arn:aws:ssm:eu-west-2:*:parameter/addomainjoin"
-
+              "arn:aws:ssm:eu-west-2:*:parameter/addomainjoin",
+              "arn:aws:ssm:eu-west-2:*:parameter/data_landing_bucket_name"
             ]
         },
         {
