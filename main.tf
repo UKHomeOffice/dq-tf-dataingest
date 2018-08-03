@@ -229,6 +229,7 @@ resource "aws_instance" "di_web_linux" {
   associate_public_ip_address = false
   subnet_id                   = "${aws_subnet.data_ingest.id}"
   private_ip                  = "${var.dp_web_linux_private_ip}"
+  monitoring                  = true
 
   user_data = <<EOF
 #!/bin/bash
