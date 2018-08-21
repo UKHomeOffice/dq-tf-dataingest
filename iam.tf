@@ -390,10 +390,15 @@ resource "aws_iam_group_policy" "dq_dacc_data_ingest_landing" {
     {
       "Action": "s3:ListBucket",
       "Effect": "Allow",
-      "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}/*"
+      "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}"
     },
     {
       "Action": "s3:GetObject",
+      "Effect": "Allow",
+      "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}/*"
+    },
+    {
+      "Action": "s3:ListObject",
       "Effect": "Allow",
       "Resource": "${aws_s3_bucket.dacc_data_landing_bucket.arn}/*"
     },
