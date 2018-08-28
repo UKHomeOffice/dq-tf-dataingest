@@ -163,7 +163,6 @@ resource "aws_security_group" "di_web" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${var.dq_database_cidr_block}",
       "${var.dq_database_cidr_block_secondary}",
     ]
   }
@@ -174,7 +173,6 @@ resource "aws_security_group" "di_web" {
     protocol  = "udp"
 
     cidr_blocks = [
-      "${var.dq_database_cidr_block}",
       "${var.dq_database_cidr_block_secondary}",
     ]
   }
