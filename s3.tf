@@ -41,6 +41,11 @@ resource "aws_kms_key" "dacc_data_landing_bucket_key" {
   deletion_window_in_days = 7
 }
 
+resource "aws_s3_bucket_metric" "data_landing_bucket-logging" {
+  bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
+  name   = "EntireBucket"
+}
+
 resource "aws_s3_bucket" "dacc_data_landing_bucket" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   region = "${data.aws_region.current.name}"
@@ -66,4 +71,9 @@ resource "aws_s3_bucket" "dacc_data_landing_bucket" {
   tags = {
     Name = "s3-dacc-data-landing-bucket-${local.naming_suffix}"
   }
+}
+
+resource "aws_s3_bucket_metric" "dacc_data_landing_bucket-logging" {
+  bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
+  name   = "EntireBucket"
 }
