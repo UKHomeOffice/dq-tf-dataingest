@@ -43,7 +43,7 @@ resource "aws_kms_key" "dacc_data_landing_bucket_key" {
 
 resource "aws_s3_bucket_metric" "data_landing_bucket_logging" {
   bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
-  name   = "EntireBucket"
+  name   = "data_landing_bucket_metric"
 }
 
 resource "aws_s3_bucket" "dacc_data_landing_bucket" {
@@ -75,5 +75,5 @@ resource "aws_s3_bucket" "dacc_data_landing_bucket" {
 
 resource "aws_s3_bucket_metric" "dacc_data_landing_bucket_logging" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
-  name   = "EntireBucket"
+  name   = "dacc_data_landing_bucket_metric"
 }
