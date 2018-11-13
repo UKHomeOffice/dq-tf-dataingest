@@ -269,6 +269,10 @@ export RDS_POSTGRES_DATA_INGEST_NAME=`aws --region eu-west-2 ssm get-parameter -
 export RDS_POSTGRES_DATA_INGEST_PASSWORD=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-password --query 'Parameter.Value' --output text --with-decryption`
 export RDS_POSTGRES_DATA_INGEST_USERNAME=`aws --region eu-west-2 ssm get-parameter --name rds-postgres-dataingest-username --query 'Parameter.Value' --output text --with-decryption`
 export DATA_LANDING_BUCKET_NAME=`aws --region eu-west-2 ssm get-parameter --name data_landing_bucket_name --query 'Parameter.Value' --output text --with-decryption`
+export ACL_DB_LOCATION=`aws --region eu-west-2 ssm get-parameter --name acl-db-location --query 'Parameter.Value' --output text --with-decryption`
+export ACL_S3_DESTINATION=`aws --region eu-west-2 ssm get-parameter --name acl-backup-destination --query 'Parameter.Value' --output text --with-decryption`
+export OAG_DB_LOCATION=`aws --region eu-west-2 ssm get-parameter --name oag-db-location --query 'Parameter.Value' --output text --with-decryption`
+export OAG_S3_DESTINATION=`aws --region eu-west-2 ssm get-parameter --name oag-backup-destination --query 'Parameter.Value' --output text --with-decryption`
 " > /etc/profile.d/script_envs.sh
 
 su -c "/etc/profile.d/script_envs.sh" - wherescape
