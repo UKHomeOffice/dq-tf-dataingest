@@ -78,7 +78,12 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_user_password",
               "arn:aws:ssm:eu-west-2:*:parameter/ACL_ftp_server_public_ip",
               "arn:aws:ssm:eu-west-2:*:parameter/addomainjoin",
-              "arn:aws:ssm:eu-west-2:*:parameter/data_landing_bucket_name"
+              "arn:aws:ssm:eu-west-2:*:parameter/data_landing_bucket_name",
+              "arn:aws:ssm:eu-west-2:*:parameter/linux_ingest_wsr_user_known_hosts",
+              "arn:aws:ssm:eu-west-2:*:parameter/acl-db-location",
+              "arn:aws:ssm:eu-west-2:*:parameter/acl-backup-destination",
+              "arn:aws:ssm:eu-west-2:*:parameter/oag-db-location",
+              "arn:aws:ssm:eu-west-2:*:parameter/oag-backup-destination"
             ]
         },
         {
