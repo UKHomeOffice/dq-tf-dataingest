@@ -232,6 +232,10 @@ resource "aws_instance" "di_web_linux" {
   user_data = <<EOF
 #!/bin/bash
 
+set -e
+
+exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1
+
 if [ ! -f /bin/aws ]; then
     curl https://bootstrap.pypa.io/get-pip.py | python
     pip install awscli
