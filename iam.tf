@@ -94,7 +94,8 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
             {
               "Effect": "Allow",
               "Action": [
-                "s3:PutObject"
+                "s3:PutObject",
+                "s3:GetObject"
               ],
               "Resource": "${var.archive_bucket}/*"
             },
