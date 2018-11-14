@@ -247,6 +247,7 @@ sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name job50_
 sudo -u wherescape sh -c "aws --region eu-west-2 ssm get-parameter --name linux_ingest_wsr_user_known_hosts --query 'Parameter.Value' --output text --with-decryption | base64 --decode > ~/.ssh/known_hosts"
 sudo chmod 600 /home/wherescape/.ssh/id_rsa
 sudo chmod 600 /home/wherescape/maytech_prod_id_rsa
+sudo chmod 644 /home/wherescape/.ssh/known_hosts
 
 sudo touch /etc/profile.d/script_envs.sh
 sudo setfacl -m u:wherescape:rwx /etc/profile.d/script_envs.sh
