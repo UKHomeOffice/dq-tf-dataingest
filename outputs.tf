@@ -7,7 +7,10 @@ output "di_connectivity_tester_db_ip" {
 }
 
 output "iam_roles" {
-  value = ["${aws_iam_role.data_ingest_iam_role.id}"]
+  value = [
+    "${aws_iam_role.data_ingest_iam_role.id}",
+    "${aws_iam_role.data_ingest_linux_iam_role.id}",
+  ]
 }
 
 output "data_ingest_landing_user_arn" {
