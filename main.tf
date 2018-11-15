@@ -279,13 +279,12 @@ export ACL_DB_LOCATION=`aws --region eu-west-2 ssm get-parameter --name acl-db-l
 export ACL_S3_DESTINATION=`aws --region eu-west-2 ssm get-parameter --name acl-backup-destination --query 'Parameter.Value' --output text --with-decryption`
 export OAG_DB_LOCATION=`aws --region eu-west-2 ssm get-parameter --name oag-db-location --query 'Parameter.Value' --output text --with-decryption`
 export OAG_S3_DESTINATION=`aws --region eu-west-2 ssm get-parameter --name oag-backup-destination --query 'Parameter.Value' --output text --with-decryption`
+export ADT_SCRIPTS_FOLDER=`aws --region eu-west-2 ssm get-parameter --name linux-data-ingest-adt-scripts --query 'Parameter.Value' --output text --with-decryption`
 " > /etc/profile.d/script_envs.sh
 
 su -c "/etc/profile.d/script_envs.sh" - wherescape
 
 su -c "/ADT/scripts/acl_oag_download.sh" - wherescape && sed -i 's/#NotRunning#//g' /var/spool/cron/wherescape
-
-
 
 export DOMAIN_JOIN=`aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption`
 yum -y install sssd realmd krb5-workstation adcli samba-common-tools expect

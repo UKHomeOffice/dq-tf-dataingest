@@ -83,7 +83,8 @@ resource "aws_iam_role_policy" "data_ingest_linux_iam" {
               "arn:aws:ssm:eu-west-2:*:parameter/acl-db-location",
               "arn:aws:ssm:eu-west-2:*:parameter/acl-backup-destination",
               "arn:aws:ssm:eu-west-2:*:parameter/oag-db-location",
-              "arn:aws:ssm:eu-west-2:*:parameter/oag-backup-destination"
+              "arn:aws:ssm:eu-west-2:*:parameter/oag-backup-destination",
+              "arn:aws:ssm:eu-west-2:*:parameter/linux-data-ingest-adt-scripts"
             ]
         },
         {
