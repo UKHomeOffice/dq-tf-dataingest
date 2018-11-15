@@ -294,6 +294,7 @@ systemctl reload sshd
 chkconfig sssd on
 systemctl start sssd.service
 echo "%Domain\\ Admins@dq.homeoffice.gov.uk ALL=(ALL:ALL) ALL" >>  /etc/sudoers
+echo "%Domain\\ Admins@DQ.HOMEOFFICE.GOV.UK ALL=(ALL:ALL) ALL" >>  /etc/sudoers
 expect -c "spawn realm join -U domain.join@dq.homeoffice.gov.uk DQ.HOMEOFFICE.GOV.UK; expect \"*?assword for domain.join@DQ.HOMEOFFICE.GOV.UK:*\"; send -- \"$DOMAIN_JOIN\r\" ; expect eof"
 systemctl restart sssd.service
 
