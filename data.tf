@@ -25,7 +25,7 @@ data "aws_ami" "di_web_linux" {
     name = "name"
 
     values = [
-      "dq-data-ingest-linux-server-69*",
+      "dq-data-ingest-linux-server-72*",
     ]
   }
 
