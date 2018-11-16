@@ -285,6 +285,7 @@ export ADT_SCRIPTS_FOLDER=`aws --region eu-west-2 ssm get-parameter --name linux
 su -c "/etc/profile.d/script_envs.sh" - wherescape
 
 sudo -u wherescape sh -c "
+/etc/profile.d/script_envs.sh && \
 cd /appdata/data-transfer && \
 source ~/.virtualenvs/data-transfer/bin/activate && \
 export PYTHONPATH=. && \
