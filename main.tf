@@ -300,6 +300,10 @@ expect -c "spawn realm join -U domain.join@dq.homeoffice.gov.uk DQ.HOMEOFFICE.GO
 systemctl restart sssd.service
 
 sudo -i
+systemctl stop clamd@scan
+chown -R wherescape:SSM /var/run/clamd.scan
+systemctl start clamd@scan
+
 mkfs.xfs /dev/xvdb
 mkdir -p /mnt/var/log/
 mount /dev/xvdb /mnt/var/log
