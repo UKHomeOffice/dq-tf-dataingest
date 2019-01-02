@@ -80,5 +80,17 @@ class TestE2E(unittest.TestCase):
     def test_name_suffix_mds_db_identifier(self):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_mssql_2012"]["identifier"], "mds-rds-mssql2012-dataingest-apps-preprod-dq")
 
+    def test_name_suffix_oag_iam_group(self):
+        self.assertEqual(self.result['data_ingest']["aws_iam_group.oag_put"]["name"], "iam-group-oag-put-dataingest-apps-preprod-dq")
+
+    def test_name_suffix_oag_iam_group_membership(self):
+        self.assertEqual(self.result['data_ingest']["aws_iam_group_membership.oag_put"]["name"], "iam-group-membership-oag-put-dataingest-apps-preprod-dq")
+
+    def test_name_suffix_oag_iam_group_policy(self):
+        self.assertEqual(self.result['data_ingest']["aws_iam_group_policy.oag_put"]["name"], "group-policy-oag-put-dataingest-apps-preprod-dq")
+
+    def test_name_suffix_oag_iam_user(self):
+        self.assertEqual(self.result['data_ingest']["aws_iam_user.oag_put"]["name"], "iam-user-oag-put-dataingest-apps-preprod-dq")
+
 if __name__ == '__main__':
     unittest.main()
