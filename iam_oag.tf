@@ -13,7 +13,7 @@ resource "aws_iam_group_membership" "oag_put" {
 }
 
 resource "aws_iam_group_policy" "oag_put" {
-  name  = "oag-put-group-policy-${local.naming_suffix}"
+  name  = "group-policy-oag-put-${local.naming_suffix}"
   group = "${aws_iam_group.oag_put.id}"
 
   policy = <<EOF
