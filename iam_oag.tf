@@ -27,7 +27,7 @@ resource "aws_iam_group_policy" "oag" {
       "Resource": "${aws_s3_bucket.data_landing_bucket.arn}"
     },
     {
-      "Sid": PutS3Bucket,
+      "Sid": "PutS3Bucket",
       "Effect": "Allow",
       "Action": [
         "s3:PutObject"
@@ -46,9 +46,10 @@ resource "aws_iam_group_policy" "oag" {
         ],
         "Resource": [
           "${aws_kms_key.data_landing_bucket_key.arn}",
-          "${aws_dynamodb_table.oag.arn}",
+          "${aws_dynamodb_table.oag.arn}"
         ]
     },
+    {
       "Sid": "ListDynamoDBTable",
       "Effect": "Allow",
       "Action": [
