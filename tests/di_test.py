@@ -81,28 +81,22 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_mssql_2012"]["identifier"], "mds-rds-mssql2012-dataingest-apps-preprod-dq")
 
     def test_name_suffix_oag_iam_group(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_group.oag_put"]["name"], "iam-group-oag-put-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_iam_group.oag"]["name"], "iam-group-oag-dataingest-apps-preprod-dq")
 
     def test_name_suffix_oag_iam_group_membership(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_group_membership.oag_put"]["name"], "iam-group-membership-oag-put-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_iam_group_membership.oag"]["name"], "iam-group-membership-oag-dataingest-apps-preprod-dq")
 
     def test_name_suffix_oag_iam_group_policy(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_group_policy.oag_put"]["name"], "group-policy-oag-put-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_iam_group_policy.oag"]["name"], "group-policy-oag-dataingest-apps-preprod-dq")
 
     def test_name_suffix_oag_iam_user(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_user.oag_put"]["name"], "iam-user-oag-put-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_iam_user.oag"]["name"], "iam-user-oag-dataingest-apps-preprod-dq")
 
-    def test_name_suffix_oag_get_iam_group(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_group.oag_get"]["name"], "iam-group-oag-get-dataingest-apps-preprod-dq")
+    def test_name_suffix_oag_dynamodb(self):
+        self.assertEqual(self.result['data_ingest']["aws_dynamodb_table.oag"]["name"], "oag-dynamodb-table-dataingest-apps-preprod-dq")
 
-    def test_name_suffix_oag_get_iam_group_membership(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_group_membership.oag_get"]["name"], "iam-group-membership-oag-get-dataingest-apps-preprod-dq")
+oag-table-
 
-    def test_name_suffix_oag_get_iam_group_policy(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_group_policy.oag_get"]["name"], "group-policy-oag-get-dataingest-apps-preprod-dq")
-
-    def test_name_suffix_oag_get_iam_user(self):
-        self.assertEqual(self.result['data_ingest']["aws_iam_user.oag_get"]["name"], "iam-user-oag-get-dataingest-apps-preprod-dq")
 
 if __name__ == '__main__':
     unittest.main()
