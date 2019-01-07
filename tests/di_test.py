@@ -95,8 +95,5 @@ class TestE2E(unittest.TestCase):
     def test_name_suffix_oag_dynamodb(self):
         self.assertEqual(self.result['data_ingest']["aws_dynamodb_table.oag"]["name"], "oag-dynamodb-table-dataingest-apps-preprod-dq")
 
-oag-table-
-
-
 if __name__ == '__main__':
     unittest.main()
