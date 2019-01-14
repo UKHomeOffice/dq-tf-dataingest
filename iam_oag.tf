@@ -44,32 +44,7 @@ resource "aws_iam_group_policy" "oag" {
         "kms:GenerateDataKey*",
         "kms:DescribeKey"
         ],
-        "Resource": [
-          "${aws_kms_key.data_landing_bucket_key.arn}",
-          "${aws_dynamodb_table.oag.arn}"
-        ]
-    },
-    {
-      "Sid": "ListDynamoDBTable",
-      "Effect": "Allow",
-      "Action": [
-        "dynamodb:List*"
-      ],
-      "Resource": "${aws_dynamodb_table.oag.arn}"
-    },
-    {
-      "Sid": "InteractDynamoDBTable",
-      "Effect": "Allow",
-      "Action": [
-        "dynamodb:DescribeTable",
-        "dynamodb:Query",
-        "dynamodb:Scan",
-        "dynamodb:BatchGet*",
-        "dynamodb:Get*",
-        "dynamodb:BatchWrite*",
-        "dynamodb:PutItem"
-      ],
-      "Resource": "${aws_dynamodb_table.oag.arn}"
+        "Resource": "${aws_kms_key.data_landing_bucket_key.arn}"
     }
   ]
 }
