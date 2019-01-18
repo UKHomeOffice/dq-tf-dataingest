@@ -286,7 +286,7 @@ su -c "/etc/profile.d/script_envs.sh" - wherescape
 
 su -c "/ADT/scripts/pm2_startup.sh" - wherescape
 
-su -c "/ADT/scripts/acl_oag_download.sh" - wherescape && sed -i 's/#NotRunning#//g' /var/spool/cron/wherescape
+su -c "/ADT/scripts/acl_download.sh" - wherescape && sed -i 's/#NotRunning#//g' /var/spool/cron/wherescape
 
 export DOMAIN_JOIN=`aws --region eu-west-2 ssm get-parameter --name addomainjoin --query 'Parameter.Value' --output text --with-decryption`
 yum -y install sssd realmd krb5-workstation adcli samba-common-tools expect
