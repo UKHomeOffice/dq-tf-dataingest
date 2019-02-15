@@ -73,7 +73,7 @@ resource "aws_db_instance" "postgres" {
   allocated_storage       = 100
   storage_type            = "gp2"
   engine                  = "postgres"
-  engine_version          = "9.6.6"
+  engine_version          = "9.6.11"
   instance_class          = "db.m4.large"
   username                = "${random_string.username.result}"
   password                = "${random_string.password.result}"
