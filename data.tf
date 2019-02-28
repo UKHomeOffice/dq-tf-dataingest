@@ -1,3 +1,5 @@
+data "aws_region" "current" {}
+
 data "aws_ami" "di_web" {
   most_recent = true
 
