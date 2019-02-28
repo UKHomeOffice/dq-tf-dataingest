@@ -50,6 +50,18 @@ resource "random_string" "mds_password" {
   special = false
 }
 
+resource "aws_ssm_parameter" "mds_username" {
+  name  = "mds_username"
+  type  = "SecureString"
+  value = "${random_string.mds_username.result}"
+}
+
+resource "aws_ssm_parameter" "mds_password" {
+  name  = "mds_password"
+  type  = "SecureString"
+  value = "${random_string.mds_password.result}"
+}
+
 resource "aws_db_instance" "mds_mssql_2012" {
   identifier              = "mds-rds-mssql2012-${local.naming_suffix}"
   allocated_storage       = 200
