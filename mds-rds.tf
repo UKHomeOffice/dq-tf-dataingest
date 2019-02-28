@@ -28,6 +28,8 @@ resource "aws_security_group" "mds_db" {
       "${var.data_pipe_apps_cidr_block}",
       "${var.data_ingest_cidr_block}",
       "${var.peering_cidr_block}",
+      "${var.dq_lambda_subnet_cidr}",
+      "${var.dq_lambda_subnet_cidr_az2}",
     ]
   }
 

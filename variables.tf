@@ -54,3 +54,11 @@ variable "dp_web_linux_private_ip" {
   default     = "10.1.6.200"
   description = "Web server address"
 }
+
+variable "dq_lambda_subnet_cidr" {
+  default = "10.1.42.0/24"
+}
+
+variable "dq_lambda_subnet_cidr_az2" {
+  default = "10.1.43.0/24"
+}
