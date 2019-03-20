@@ -7,6 +7,7 @@ resource "random_string" "s3" {
 resource "aws_kms_key" "data_landing_bucket_key" {
   description             = "This key is used to encrypt APPS buckets"
   deletion_window_in_days = 7
+  enable_key_rotation     = true
 }
 
 resource "aws_s3_bucket" "data_landing_bucket" {
@@ -68,6 +69,7 @@ POLICY
 resource "aws_kms_key" "dacc_data_landing_bucket_key" {
   description             = "This key is used to encrypt APPS buckets"
   deletion_window_in_days = 7
+  enable_key_rotation     = true
 }
 
 resource "aws_s3_bucket" "dacc_data_landing_bucket" {
