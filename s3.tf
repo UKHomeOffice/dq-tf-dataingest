@@ -36,14 +36,38 @@ resource "aws_s3_bucket" "data_landing_bucket" {
   }
 }
 
-resource "aws_kms_key" "dacc_data_landing_bucket_key" {
-  description             = "This key is used to encrypt APPS buckets"
-  deletion_window_in_days = 7
-}
-
 resource "aws_s3_bucket_metric" "data_landing_bucket_logging" {
   bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   name   = "data_landing_bucket_metric"
+}
+
+resource "aws_s3_bucket_policy" "data_landing_bucket" {
+  bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "HTTP",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "*",
+      "Resource": "arn:aws:s3:::s3-data-landing-${local.naming_suffix}-${random_string.s3.result}/*",
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
+POLICY
+}
+
+resource "aws_kms_key" "dacc_data_landing_bucket_key" {
+  description             = "This key is used to encrypt APPS buckets"
+  deletion_window_in_days = 7
 }
 
 resource "aws_s3_bucket" "dacc_data_landing_bucket" {
@@ -76,4 +100,28 @@ resource "aws_s3_bucket" "dacc_data_landing_bucket" {
 resource "aws_s3_bucket_metric" "dacc_data_landing_bucket_logging" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   name   = "dacc_data_landing_bucket_metric"
+}
+
+resource "aws_s3_bucket_policy" "dacc_data_landing_bucket" {
+  bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
+
+  policy = <<POLICY
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "HTTP",
+      "Effect": "Deny",
+      "Principal": "*",
+      "Action": "*",
+      "Resource": "arn:aws:s3:::s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}/*",
+      "Condition": {
+        "Bool": {
+          "aws:SecureTransport": "false"
+        }
+      }
+    }
+  ]
+}
+POLICY
 }
