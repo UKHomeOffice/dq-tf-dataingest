@@ -325,10 +325,6 @@ resource "aws_iam_group_membership" "dacc_data_ingest_landing_bucket" {
   group = "${aws_iam_group.dacc_data_ingest_landing_bucket.name}"
 }
 
-resource "aws_iam_access_key" "dacc_data_ingest_landing_bucket" {
-  user = "${aws_iam_user.dacc_data_ingest_landing_bucket.name}"
-}
-
 resource "aws_iam_group_policy" "dacc_data_ingest_landing" {
   group = "${aws_iam_group.dacc_data_ingest_landing_bucket.id}"
 
