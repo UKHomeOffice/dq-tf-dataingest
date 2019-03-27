@@ -249,6 +249,10 @@ resource "aws_iam_access_key" "data_ingest_landing" {
   user = "${aws_iam_user.data_ingest_landing.name}"
 }
 
+resource "aws_iam_access_key" "data_ingest_landing_v2" {
+  user = "${aws_iam_user.data_ingest_landing.name}"
+}
+
 resource "aws_iam_group" "data_ingest_landing" {
   name = "data_ingest_landing"
 }
@@ -326,6 +330,10 @@ resource "aws_iam_group_membership" "dq_dacc_data_ingest_landing_bucket" {
 }
 
 resource "aws_iam_access_key" "dq_dacc_data_ingest_landing_bucket" {
+  user = "${aws_iam_user.dq_dacc_data_ingest_landing_bucket.name}"
+}
+
+resource "aws_iam_access_key" "dq_dacc_data_ingest_landing_bucket_v2" {
   user = "${aws_iam_user.dq_dacc_data_ingest_landing_bucket.name}"
 }
 
