@@ -32,7 +32,3 @@ output "data_landing_bucket_key_arn" {
 output "rds_mds_address" {
   value = "${aws_db_instance.mds_mssql_2012.address}"
 }
-
-output "db_instance_id" {
-	value = "${aws_db_instance.postgres.identifier}"
-}
