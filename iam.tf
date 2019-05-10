@@ -176,7 +176,6 @@ resource "aws_iam_role_policy" "mds_rds_iam_policy" {
       "Action": [
         "s3:GetObject",
         "s3:ListObject",
-        "s3:DeleteObject",
         "s3:PutObject"
       ],
       "Resource": "${var.archive_bucket}/*"
