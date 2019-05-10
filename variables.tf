@@ -62,3 +62,11 @@ variable "dq_lambda_subnet_cidr" {
 variable "dq_lambda_subnet_cidr_az2" {
   default = "10.1.43.0/24"
 }
+
+variable "data_archive_bucket" {
+  description = "Data Archive Bucket ARN"
+}
+
+variable "data_archive_bucket_kms" {
+  description = "Data Archive Bucket KMS"
+}
