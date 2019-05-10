@@ -97,9 +97,9 @@ resource "aws_db_option_group" "mds-backup-restore" {
   option_group_description = "Allow MDS to backup/restore to/from S3"
   engine_name              = "sqlserver-ee"
   major_engine_version     = "11.00"
-  depends_on               = [
+  depends_on               = {
     "aws_iam_role.mds_rds_iam_role"
-  ]
+  }
 
 
    option {
