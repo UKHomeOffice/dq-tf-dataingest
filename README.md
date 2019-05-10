@@ -1,15 +1,13 @@
 # dq-tf-dataingest
 
-This Terraform module has one private subnet and deploys an EC2 instance representing a web server and an SQL database instance. Allowing inbound TCP traffic on port 135, inbound RDP TCP traffic on port 3389 and SQL TCP traffic on 5432.
-
+This Terraform module has one private subnet and deploys an RDS instance. Allowing inbound SQL TCP traffic on 1443.
+Also it deploys S3 buckets and associated IAM policies.
 
 ## Connectivity
 
 | In/Out        | Type           | Protocol | FromPort| To Port | Description |
 | ------------- |:-------------:| -----:| -----:|-----:| -----:|
-|INBOUND | RDP | TCP |3389 | 3389| Dataingest Web |
-|INBOUND | RPC TCP | TCP | 135 | 135 | Dataingest Web |
-|INBOUND | PostgreSQL TCP | TCP | 5432 | 5432 | Dataingest PostgreSQL |
+|INBOUND | PostgreSQL TCP | TCP | 1443 | 1443 | MDS MSSQL|
 
 ## Content overview
 
@@ -19,10 +17,18 @@ It consists of the following core elements:
 
 ### main.tf
 
-This file has the basic components for EC2 instances
+This file has the basic components for an RDS instances
 - Private subnet and route table association
-- Two EC2 instances using the connectivity tester module
-- Security group for the SQL and Web server
+- One RDS instances
+- Security group for the SQL
+
+### iam.tf
+
+IAM policies used by the S3 buckets.
+
+### mds-rds.tf
+
+Deploys an RDS instance along with a security and database resource group.
 
 ### outputs.tf
 
