@@ -7,7 +7,7 @@ Also it deploys S3 buckets and associated IAM policies.
 
 | In/Out        | Type           | Protocol | FromPort| To Port | Description |
 | ------------- |:-------------:| -----:| -----:|-----:| -----:|
-|INBOUND | PostgreSQL TCP | TCP | 1443 | 1443 | MDS MSSQL|
+|INBOUND | MSSQL TCP | TCP | 1443 | 1443 | MDS MSSQL|
 
 ## Content overview
 
