@@ -33,8 +33,6 @@ class TestE2E(unittest.TestCase):
               archive_bucket              = "dq-test"
               archive_bucket_name         = "dq-test"
               apps_buckets_kms_key        = "arn:aws:kms:eu-west-2:123456789:key/654dy74520786elkfugho4576lfk;suh358976"
-              data_archive_bucket         = "s3-bucket-name"
-              data_archive_bucket_kms     = "arn:aws:kms:eu-west-2:123456789:key/654dy74520786elkfugho4576lfk;suh358976"
             }
         """
         self.result = Runner(self.snippet).result
