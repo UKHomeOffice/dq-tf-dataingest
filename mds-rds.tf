@@ -91,3 +91,20 @@ resource "aws_db_instance" "mds_mssql_2012" {
     Name = "mds-rds-mssql2012-${local.naming_suffix}"
   }
 }
+
+resource "aws_db_option_group" "mds-backup-restore" {
+  name                     = "mds-backup-restore"
+  option_group_description = "Allow MDS to backup/restore to/from S3"
+  engine_name              = "sqlserver-ee"
+  major_engine_version     = "11.00"
+
+   option {
+    option_name = "SQLSERVER_BACKUP_RESTORE"
+
+     option_settings {
+      name  = "IAM_ROLE_ARN"
+      value = "${aws_iam_role.mds_rds_iam_role.arn}"
+    }
+  }
+
+ }
