@@ -25,7 +25,6 @@ resource "aws_security_group" "mds_db" {
 
     cidr_blocks = [
       "${var.opssubnet_cidr_block}",
-      "${var.data_pipe_apps_cidr_block}",
       "${var.data_ingest_cidr_block}",
       "${var.peering_cidr_block}",
       "${var.dq_lambda_subnet_cidr}",

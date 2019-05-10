@@ -25,7 +25,6 @@ class TestE2E(unittest.TestCase):
               opssubnet_cidr_block        = "1.2.3.0/24"
               data_ingest_cidr_block      = "10.1.6.0/24"
               data_ingest_rds_cidr_block  = "10.1.7.0/24"
-              data_pipe_apps_cidr_block   = "1.2.3.0/24"
               peering_cidr_block          = "1.1.1.0/24"
               az                          = "eu-west-2a"
               az2                         = "eu-west-2b"
@@ -34,7 +33,6 @@ class TestE2E(unittest.TestCase):
               archive_bucket              = "dq-test"
               archive_bucket_name         = "dq-test"
               apps_buckets_kms_key        = "arn:aws:kms:eu-west-2:123456789:key/654dy74520786elkfugho4576lfk;suh358976"
-              dq_database_cidr_block_secondary = ["10.1.1.0/24"]
             }
         """
         self.result = Runner(self.snippet).result

@@ -1,6 +1,5 @@
 variable "appsvpc_id" {}
 variable "opssubnet_cidr_block" {}
-variable "data_pipe_apps_cidr_block" {}
 variable "data_ingest_cidr_block" {}
 variable "data_ingest_rds_cidr_block" {}
 variable "peering_cidr_block" {}
@@ -10,10 +9,6 @@ variable "logging_bucket_id" {}
 variable "archive_bucket" {}
 variable "archive_bucket_name" {}
 variable "apps_buckets_kms_key" {}
-
-variable "dq_database_cidr_block_secondary" {
-  type = "list"
-}
 
 variable "naming_suffix" {
   default     = false
