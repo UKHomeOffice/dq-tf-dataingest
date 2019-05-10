@@ -30,8 +30,6 @@ class TestE2E(unittest.TestCase):
               az                          = "eu-west-2a"
               az2                         = "eu-west-2b"
               naming_suffix               = "apps-preprod-dq"
-              key_name                    = "test"
-              dp_web_private_ip           = "10.1.1.1"
               logging_bucket_id           = "dq-bucket-name"
               archive_bucket              = "dq-test"
               archive_bucket_name         = "dq-test"
@@ -50,23 +48,8 @@ class TestE2E(unittest.TestCase):
     def test_name_suffix_data_ingest(self):
         self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["tags.Name"], "subnet-dataingest-apps-preprod-dq")
 
-    def test_name_suffix_di_db(self):
-        self.assertEqual(self.result['data_ingest']["aws_security_group.di_db"]["tags.Name"], "sg-db-dataingest-apps-preprod-dq")
-
-    def test_name_suffix_di_web(self):
-        self.assertEqual(self.result['data_ingest']["aws_security_group.di_web"]["tags.Name"], "sg-web-dataingest-apps-preprod-dq")
-
-    def test_name_suffix_rds_subnet_group(self):
-        self.assertEqual(self.result['data_ingest']["aws_db_subnet_group.rds"]["tags.Name"], "rds-subnet-group-dataingest-apps-preprod-dq")
-
     def test_name_suffix_rds_subnet(self):
         self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest_az2"]["tags.Name"], "az2-subnet-dataingest-apps-preprod-dq")
-
-    def test_name_suffix_rds_postgres(self):
-        self.assertEqual(self.result['data_ingest']["aws_db_instance.postgres"]["tags.Name"], "rds-postgres-dataingest-apps-preprod-dq")
-
-    def test_name_suffix_ws_instance(self):
-        self.assertEqual(self.result['data_ingest']["aws_instance.di_web"]["tags.Name"], "ec2-win-dataingest-apps-preprod-dq")
 
     def test_name_suffix_mds_subnet_group(self):
         self.assertEqual(self.result['data_ingest']["aws_db_subnet_group.mds_rds"]["tags.Name"], "mds-rds-subnet-group-dataingest-apps-preprod-dq")
