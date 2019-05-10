@@ -1,37 +1,5 @@
 data "aws_region" "current" {}
 
-data "aws_ami" "di_web" {
-  most_recent = true
-
-  filter {
-    name = "name"
-
-    values = [
-      "dq-data-ingest-server 2018-02-22T1*",
-    ]
-  }
-
-  owners = [
-    "self",
-  ]
-}
-
-data "aws_ami" "di_web_linux" {
-  most_recent = true
-
-  filter {
-    name = "name"
-
-    values = [
-      "dq-data-ingest-linux-server-117*",
-    ]
-  }
-
-  owners = [
-    "self",
-  ]
-}
-
 data "aws_ssm_parameter" "data-landing-s3" {
   name = "data-landing-s3"
 }
