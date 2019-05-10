@@ -104,7 +104,7 @@ resource "aws_db_option_group" "mds-backup-restore" {
 
     option_settings {
       name  = "IAM_ROLE_ARN"
-      value = "${aws_iam_role.mds_rds_iam_profile.arn}"
+      value = "${aws_iam_role.mds_rds_iam_role.arn}"
     }
   }
 
