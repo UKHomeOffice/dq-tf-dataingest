@@ -169,7 +169,7 @@ resource "aws_iam_role_policy" "mds_rds_iam_policy" {
     {
       "Effect": "Allow",
       "Action": ["s3:ListBucket"],
-      "Resource": "${var.archive_bucket}"
+      "Resource": "${var.data_archive_bucket}"
     },
     {
       "Effect": "Allow",
@@ -179,7 +179,7 @@ resource "aws_iam_role_policy" "mds_rds_iam_policy" {
         "s3:DeleteObject",
         "s3:PutObject"
       ],
-      "Resource": "${var.archive_bucket}/*"
+      "Resource": "${var.data_archive_bucket}/*"
     },
     {
       "Effect": "Allow",
@@ -190,7 +190,7 @@ resource "aws_iam_role_policy" "mds_rds_iam_policy" {
         "kms:GenerateDataKey*",
         "kms:DescribeKey"
         ],
-        "Resource": "${var.apps_buckets_kms_key}"
+        "Resource": "${var.data_archive_bucket_kms}"
     }
    ]
 }
