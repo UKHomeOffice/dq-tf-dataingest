@@ -61,5 +61,8 @@ class TestE2E(unittest.TestCase):
     def test_name_suffix_mds_db_identifier(self):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_mssql_2012"]["identifier"], "mds-rds-mssql2012-dataingest-apps-preprod-dq")
 
+    def test_cw_pipeline_name(self):
+        self.assertEqual(self.result['data_ingest']["module.cloudwatch_alarms_rds"]["pipeline_name"], "mds")
+
 if __name__ == '__main__':
     unittest.main()
