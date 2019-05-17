@@ -91,3 +91,11 @@ resource "aws_db_instance" "mds_mssql_2012" {
     Name = "mds-rds-mssql2012-${local.naming_suffix}"
   }
 }
+
+module "cloudwatch_alarms_rds" {
+  source         = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
+  environment    = "${var.naming_suffix}"
+  naming_suffix  = "${local.naming_suffix}"
+  db_instance_id = "${aws_db_instance.mds_mssql_2012.id}"
+  pipeline_name  = "mds"
+}
