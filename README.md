@@ -29,7 +29,6 @@ IAM policies used by the S3 buckets.
 ### mds-rds.tf
 
 Deploys an RDS instance along with a security and database resource group.
-Also it pulls in another module for Cloudwatch alerts.
 
 ### outputs.tf
 
