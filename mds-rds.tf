@@ -77,7 +77,7 @@ resource "aws_db_instance" "mds_mssql_2012" {
   maintenance_window      = "mon:01:30-mon:02:30"
   backup_retention_period = 14
   storage_encrypted       = true
-  multi_az                = true
+  multi_az                = false
   skip_final_snapshot     = true
 
   db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
