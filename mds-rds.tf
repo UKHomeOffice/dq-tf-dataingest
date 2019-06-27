@@ -92,37 +92,6 @@ resource "aws_db_instance" "mds_mssql_2012" {
   }
 }
 
-resource "aws_db_instance" "postgres" {
-  count                           = "${var.environment == "prod" ? "0" : "1"}"
-  identifier                      = "postgres-${local.naming_suffix}"
-  allocated_storage               = "200"
-  storage_type                    = "gp2"
-  engine                          = "postgres"
-  engine_version                  = "10.6"
-  instance_class                  = "db.t2.large"
-  enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
-  username                        = "${random_string.mds_username.result}"
-  password                        = "${random_string.mds_password.result}"
-  backup_window                   = "00:00-01:00"
-  maintenance_window              = "tue:20:00-tue:22:00"
-  backup_retention_period         = 14
-  deletion_protection             = true
-  storage_encrypted               = true
-  multi_az                        = false
-  skip_final_snapshot             = true
-
-  db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
-  vpc_security_group_ids = ["${aws_security_group.mds_db.id}"]
-
-  lifecycle {
-    prevent_destroy = true
-  }
-
-  tags {
-    Name = "mds-rds-postgres-test-${local.naming_suffix}"
-  }
-}
-
 module "rds_alarms" {
   source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
 
