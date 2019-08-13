@@ -92,6 +92,36 @@ resource "aws_db_instance" "mds_mssql_2012" {
   }
 }
 
+resource "aws_db_instance" "postgres" {
+  identifier                      = "postgres-${local.naming_suffix}"
+  allocated_storage               = 200
+  storage_type                    = "gp2"
+  engine                          = "postgres"
+  engine_version                  = "11.00.6594.0.v1"
+  license_model                   = "license-included"
+  instance_class                  = "db.m4.large"
+  enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
+  username                        = "${random_string.mds_username.result}"
+  password                        = "${random_string.mds_password.result}"
+  backup_window                   = "00:00-01:00"
+  maintenance_window              = "tue:20:00-tue:22:00"
+  backup_retention_period         = 14
+  storage_encrypted               = true
+  multi_az                        = false
+  skip_final_snapshot             = true
+
+  db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
+  vpc_security_group_ids = ["${aws_security_group.mds_db.id}"]
+
+  lifecycle {
+    prevent_destroy = true
+  }
+
+  tags {
+    Name = "mds-rds-postgres-${local.naming_suffix}"
+  }
+}
+
 module "rds_alarms" {
   source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
 
@@ -100,5 +130,5 @@ module "rds_alarms" {
   pipeline_name                = "MDS"
   db_instance_id               = "${aws_db_instance.mds_mssql_2012.id}"
   swap_alarm                   = "false"
-  free_storage_space_threshold = 30000000000 # 30GB free space
+  free_storage_space_threshold = 30000000000                            # 30GB free space
 }
