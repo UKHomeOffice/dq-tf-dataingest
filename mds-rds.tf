@@ -92,8 +92,8 @@ resource "aws_db_instance" "mds_mssql_2012" {
   }
 }
 
-resource "aws_db_instance" "postgres" {
-  identifier                      = "postgres-${local.naming_suffix}"
+resource "aws_db_instance" "mds-postgres" {
+  identifier                      = "mds-postgres-${local.naming_suffix}"
   allocated_storage               = 200
   storage_type                    = "gp2"
   engine                          = "postgres"
