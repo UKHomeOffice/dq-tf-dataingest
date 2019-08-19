@@ -40,6 +40,35 @@ resource "aws_security_group" "mds_db" {
   }
 }
 
+resource "aws_security_group" "mds_postgres" {
+  vpc_id = "${var.appsvpc_id}"
+
+  tags {
+    Name = "sg-mds-db-${local.naming_suffix}"
+  }
+
+  ingress {
+    from_port = 5432
+    to_port   = 5432
+    protocol  = "tcp"
+
+    cidr_blocks = [
+      "${var.opssubnet_cidr_block}",
+      "${var.data_ingest_cidr_block}",
+      "${var.peering_cidr_block}",
+      "${var.dq_lambda_subnet_cidr}",
+      "${var.dq_lambda_subnet_cidr_az2}",
+    ]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
+
 resource "random_string" "mds_username" {
   length  = 8
   number  = false
@@ -112,7 +141,7 @@ resource "aws_db_instance" "mds_postgres" {
   skip_final_snapshot             = true
 
   db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
-  vpc_security_group_ids = ["${aws_security_group.mds_db.id}"]
+  vpc_security_group_ids = ["${aws_security_group.mds_postgres.id}"]
 
   lifecycle {
     prevent_destroy = true
