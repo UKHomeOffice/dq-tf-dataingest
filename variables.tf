@@ -28,3 +28,7 @@ variable "dq_lambda_subnet_cidr" {
 variable "dq_lambda_subnet_cidr_az2" {
   default = "10.1.43.0/24"
 }
+
+variable "rds_enhanced_monitoring_role" {
+  description = "ARN of the RDS enhanced monitoring role"
+}

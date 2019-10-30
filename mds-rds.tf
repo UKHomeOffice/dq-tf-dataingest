@@ -109,6 +109,9 @@ resource "aws_db_instance" "mds_mssql_2012" {
   multi_az                = false
   skip_final_snapshot     = true
 
+  monitoring_interval  = "60"
+  monitoring_role_arn  = "${var.rds_enhanced_monitoring_role}"
+
   db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
   vpc_security_group_ids = ["${aws_security_group.mds_db.id}"]
 
@@ -138,6 +141,9 @@ resource "aws_db_instance" "mds_postgres" {
   storage_encrypted               = true
   multi_az                        = false
   skip_final_snapshot             = true
+
+  monitoring_interval  = "60"
+  monitoring_role_arn  = "${var.rds_enhanced_monitoring_role}"
 
   db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
   vpc_security_group_ids = ["${aws_security_group.mds_postgres.id}"]
