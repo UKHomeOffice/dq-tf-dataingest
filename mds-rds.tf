@@ -108,9 +108,10 @@ resource "aws_db_instance" "mds_mssql_2012" {
   storage_encrypted       = true
   multi_az                = false
   skip_final_snapshot     = true
+  ca_cert_identifier      = "${var.environment == "prod" ? "rds-ca-2015" : "rds-ca-2019"}"
 
-  monitoring_interval  = "60"
-  monitoring_role_arn  = "${var.rds_enhanced_monitoring_role}"
+  monitoring_interval = "60"
+  monitoring_role_arn = "${var.rds_enhanced_monitoring_role}"
 
   db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
   vpc_security_group_ids = ["${aws_security_group.mds_db.id}"]
@@ -141,9 +142,10 @@ resource "aws_db_instance" "mds_postgres" {
   storage_encrypted               = true
   multi_az                        = false
   skip_final_snapshot             = true
+  ca_cert_identifier              = "${var.environment == "prod" ? "rds-ca-2015" : "rds-ca-2019"}"
 
-  monitoring_interval  = "60"
-  monitoring_role_arn  = "${var.rds_enhanced_monitoring_role}"
+  monitoring_interval = "60"
+  monitoring_role_arn = "${var.rds_enhanced_monitoring_role}"
 
   db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
   vpc_security_group_ids = ["${aws_security_group.mds_postgres.id}"]
@@ -165,5 +167,5 @@ module "rds_alarms" {
   pipeline_name                = "MDS"
   db_instance_id               = "${aws_db_instance.mds_mssql_2012.id}"
   swap_alarm                   = "false"
-  free_storage_space_threshold = 30000000000                            # 30GB free space
+  free_storage_space_threshold = 30000000000 # 30GB free space
 }
