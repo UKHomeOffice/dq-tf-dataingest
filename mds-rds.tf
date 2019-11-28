@@ -108,7 +108,7 @@ resource "aws_db_instance" "mds_mssql_2012" {
   storage_encrypted       = true
   multi_az                = false
   skip_final_snapshot     = true
-  ca_cert_identifier      = "${var.environment == "prod" ? "rds-ca-2015" : "rds-ca-2019"}"
+  ca_cert_identifier      = "${var.environment == "prod" ? "rds-ca-2019" : "rds-ca-2019"}"
 
   monitoring_interval = "60"
   monitoring_role_arn = "${var.rds_enhanced_monitoring_role}"
@@ -136,13 +136,13 @@ resource "aws_db_instance" "mds_postgres" {
   username                        = "${random_string.mds_username.result}"
   password                        = "${random_string.mds_password.result}"
   backup_window                   = "00:00-01:00"
-  maintenance_window              = "tue:20:00-tue:22:00"
+  maintenance_window              = "mon:20:00-mon:22:00"
   backup_retention_period         = 14
   deletion_protection             = true
   storage_encrypted               = true
   multi_az                        = false
   skip_final_snapshot             = true
-  ca_cert_identifier              = "${var.environment == "prod" ? "rds-ca-2015" : "rds-ca-2019"}"
+  ca_cert_identifier              = "${var.environment == "prod" ? "rds-ca-2019" : "rds-ca-2019"}"
 
   monitoring_interval = "60"
   monitoring_role_arn = "${var.rds_enhanced_monitoring_role}"
