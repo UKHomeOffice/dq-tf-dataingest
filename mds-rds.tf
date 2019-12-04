@@ -125,3 +125,13 @@ resource "aws_db_instance" "mds_postgres" {
     Name = "mds-rds-postgres-${local.naming_suffix}"
   }
 }
+
+module "rds_alarms" {
+  source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
+
+  naming_suffix                = "${local.naming_suffix}"
+  environment                  = "${var.naming_suffix}"
+  pipeline_name                = "MDS"
+  db_instance_id               = "${aws_db_instance.mds_postgres.id}"
+  free_storage_space_threshold = 30000000000 # 30GB free space
+}
