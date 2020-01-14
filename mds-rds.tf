@@ -11,35 +11,6 @@ resource "aws_db_subnet_group" "mds_rds" {
   }
 }
 
-resource "aws_security_group" "mds_db" {
-  vpc_id = "${var.appsvpc_id}"
-
-  tags {
-    Name = "sg-mds-db-${local.naming_suffix}"
-  }
-
-  ingress {
-    from_port = 1433
-    to_port   = 1433
-    protocol  = "tcp"
-
-    cidr_blocks = [
-      "${var.opssubnet_cidr_block}",
-      "${var.data_ingest_cidr_block}",
-      "${var.peering_cidr_block}",
-      "${var.dq_lambda_subnet_cidr}",
-      "${var.dq_lambda_subnet_cidr_az2}",
-    ]
-  }
-
-  egress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
-    cidr_blocks = ["0.0.0.0/0"]
-  }
-}
-
 resource "aws_security_group" "mds_postgres" {
   vpc_id = "${var.appsvpc_id}"
 
