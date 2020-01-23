@@ -28,12 +28,12 @@ class TestE2E(unittest.TestCase):
               peering_cidr_block           = "1.1.1.0/24"
               az                           = "eu-west-2a"
               az2                          = "eu-west-2b"
-              naming_suffix                = "apps-preprod-dq"
+              naming_suffix                = "apps-prod-dq"
               logging_bucket_id            = "dq-bucket-name"
               archive_bucket               = "dq-test"
               archive_bucket_name          = "dq-test"
               apps_buckets_kms_key         = "arn:aws:kms:eu-west-2:123456789:key/654dy74520786elkfugho4576lfk;suh358976"
-              environment                  = "pre-prod"
+              environment                  = "prod"
               rds_enhanced_monitoring_role = "arn:aws:iam::123456789:role/rds-enhanced-monitoring-role"
             }
         """
@@ -46,16 +46,28 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["cidr_block"], "10.1.6.0/24")
 
     def test_name_suffix_data_ingest(self):
-        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["tags.Name"], "subnet-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest"]["tags.Name"], "subnet-dataingest-apps-prod-dq")
 
     def test_name_suffix_rds_subnet(self):
-        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest_az2"]["tags.Name"], "az2-subnet-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_subnet.data_ingest_az2"]["tags.Name"], "az2-subnet-dataingest-apps-prod-dq")
 
     def test_name_suffix_mds_subnet_group(self):
-        self.assertEqual(self.result['data_ingest']["aws_db_subnet_group.mds_rds"]["tags.Name"], "mds-rds-subnet-group-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_db_subnet_group.mds_rds"]["tags.Name"], "mds-rds-subnet-group-dataingest-apps-prod-dq")
 
     def test_name_suffix_mds_tag(self):
-        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["tags.Name"], "mds-rds-postgres-dataingest-apps-preprod-dq")
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["tags.Name"], "mds-rds-postgres-dataingest-apps-prod-dq")
+
+    def test_name_suffix_mds_identifier(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["identifier"], "mds-postgres-dataingest-apps-prod-dq")
+
+    def test_name_suffix_mds_backup_window(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["backup_window"], "00:00-01:00")
+
+    def test_name_suffix_mds_maintenance_window(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["maintenance_window"], "mon:01:00-mon:02:00")
+
+    def test_name_suffix_mds_ca_cert_identifier(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["ca_cert_identifier"], "rds-ca-2019")
 
 if __name__ == '__main__':
     unittest.main()
