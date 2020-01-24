@@ -69,5 +69,11 @@ class TestE2E(unittest.TestCase):
     def test_name_suffix_mds_ca_cert_identifier(self):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["ca_cert_identifier"], "rds-ca-2019")
 
+    def test_name_suffix_mds_engine_version(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["engine_version"], "10.6")
+
+    def test_name_suffix_mds_apply_immediately(self):
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["apply_immediately"], "false")
+
 if __name__ == '__main__':
     unittest.main()

@@ -68,7 +68,7 @@ resource "aws_db_instance" "mds_postgres" {
   allocated_storage               = 200
   storage_type                    = "gp2"
   engine                          = "postgres"
-  engine_version                  = "10.6"
+  engine_version                  = "${var.environment == "prod" ? "10.6" : "10.10"}"
   instance_class                  = "db.m4.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   username                        = "${random_string.mds_username.result}"
@@ -81,12 +81,11 @@ resource "aws_db_instance" "mds_postgres" {
   multi_az                        = false
   skip_final_snapshot             = true
   ca_cert_identifier              = "${var.environment == "prod" ? "rds-ca-2019" : "rds-ca-2019"}"
-
-  monitoring_interval = "60"
-  monitoring_role_arn = "${var.rds_enhanced_monitoring_role}"
-
-  db_subnet_group_name   = "${aws_db_subnet_group.mds_rds.id}"
-  vpc_security_group_ids = ["${aws_security_group.mds_postgres.id}"]
+  apply_immediately               = "${var.environment == "prod" ? "false" : "true"}"
+  monitoring_interval             = "60"
+  monitoring_role_arn             = "${var.rds_enhanced_monitoring_role}"
+  db_subnet_group_name            = "${aws_db_subnet_group.mds_rds.id}"
+  vpc_security_group_ids          = ["${aws_security_group.mds_postgres.id}"]
 
   lifecycle {
     prevent_destroy = true
