@@ -64,13 +64,13 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["backup_window"], "00:00-01:00")
 
     def test_name_suffix_mds_maintenance_window(self):
-        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["maintenance_window"], "mon:01:00-mon:02:00")
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["maintenance_window"], "tue:01:00-tue:02:00")
 
     def test_name_suffix_mds_ca_cert_identifier(self):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["ca_cert_identifier"], "rds-ca-2019")
 
     def test_name_suffix_mds_engine_version(self):
-        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["engine_version"], "10.6")
+        self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["engine_version"], "10.10")
 
     def test_name_suffix_mds_apply_immediately(self):
         self.assertEqual(self.result['data_ingest']["aws_db_instance.mds_postgres"]["apply_immediately"], "false")
