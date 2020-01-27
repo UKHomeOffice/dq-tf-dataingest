@@ -68,13 +68,13 @@ resource "aws_db_instance" "mds_postgres" {
   allocated_storage               = 200
   storage_type                    = "gp2"
   engine                          = "postgres"
-  engine_version                  = "${var.environment == "prod" ? "10.6" : "10.10"}"
+  engine_version                  = "${var.environment == "prod" ? "10.10" : "10.10"}"
   instance_class                  = "db.m4.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   username                        = "${random_string.mds_username.result}"
   password                        = "${random_string.mds_password.result}"
   backup_window                   = "${var.environment == "prod" ? "00:00-01:00" : "07:00-08:00"}"
-  maintenance_window              = "${var.environment == "prod" ? "mon:01:00-mon:02:00" : "mon:08:00-mon:09:00"}"
+  maintenance_window              = "${var.environment == "prod" ? "tue:01:00-tue:02:00" : "mon:08:00-mon:09:00"}"
   backup_retention_period         = 14
   deletion_protection             = true
   storage_encrypted               = true
