@@ -1,7 +1,3 @@
-output "data_ingest_landing_user_arn" {
-  value = "${aws_iam_user.data_ingest_landing.arn}"
-}
-
 output "data_landing_bucket_arn" {
   value = "${aws_s3_bucket.data_landing_bucket.arn}"
 }
