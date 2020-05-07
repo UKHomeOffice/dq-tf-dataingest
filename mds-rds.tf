@@ -87,6 +87,9 @@ resource "aws_db_instance" "mds_postgres" {
   db_subnet_group_name            = "${aws_db_subnet_group.mds_rds.id}"
   vpc_security_group_ids          = ["${aws_security_group.mds_postgres.id}"]
 
+  performance_insights_enabled          = true
+  performance_insights_retention_period = "7"
+
   lifecycle {
     prevent_destroy = true
   }
