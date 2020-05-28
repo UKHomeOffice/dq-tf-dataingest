@@ -12,12 +12,12 @@ resource "aws_kms_key" "data_landing_bucket_key" {
 
 resource "aws_s3_bucket" "data_landing_bucket" {
   bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
-  region = "${data.aws_region.current.name}"
+  region = data.aws_region.current.name
 
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = "${aws_kms_key.data_landing_bucket_key.arn}"
+        kms_master_key_id = aws_kms_key.data_landing_bucket_key.arn
         sse_algorithm     = "aws:kms"
       }
     }
@@ -28,7 +28,7 @@ resource "aws_s3_bucket" "data_landing_bucket" {
   }
 
   logging {
-    target_bucket = "${var.logging_bucket_id}"
+    target_bucket = var.logging_bucket_id
     target_prefix = "data_landing_bucket/"
   }
 
@@ -64,6 +64,7 @@ resource "aws_s3_bucket_policy" "data_landing_bucket" {
   ]
 }
 POLICY
+
 }
 
 resource "aws_kms_key" "dacc_data_landing_bucket_key" {
@@ -74,12 +75,12 @@ resource "aws_kms_key" "dacc_data_landing_bucket_key" {
 
 resource "aws_s3_bucket" "dacc_data_landing_bucket" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
-  region = "${data.aws_region.current.name}"
+  region = data.aws_region.current.name
 
   server_side_encryption_configuration {
     rule {
       apply_server_side_encryption_by_default {
-        kms_master_key_id = "${aws_kms_key.dacc_data_landing_bucket_key.arn}"
+        kms_master_key_id = aws_kms_key.dacc_data_landing_bucket_key.arn
         sse_algorithm     = "aws:kms"
       }
     }
@@ -90,7 +91,7 @@ resource "aws_s3_bucket" "dacc_data_landing_bucket" {
   }
 
   logging {
-    target_bucket = "${var.logging_bucket_id}"
+    target_bucket = var.logging_bucket_id
     target_prefix = "dacc_data_landing_bucket/"
   }
 
@@ -126,4 +127,6 @@ resource "aws_s3_bucket_policy" "dacc_data_landing_bucket" {
   ]
 }
 POLICY
+
 }
+

@@ -1,15 +1,38 @@
-variable "appsvpc_id" {}
-variable "opssubnet_cidr_block" {}
-variable "data_ingest_cidr_block" {}
-variable "data_ingest_rds_cidr_block" {}
-variable "peering_cidr_block" {}
-variable "az" {}
-variable "az2" {}
-variable "logging_bucket_id" {}
-variable "archive_bucket" {}
-variable "archive_bucket_name" {}
-variable "apps_buckets_kms_key" {}
-variable "environment" {}
+variable "appsvpc_id" {
+}
+
+variable "opssubnet_cidr_block" {
+}
+
+variable "data_ingest_cidr_block" {
+}
+
+variable "data_ingest_rds_cidr_block" {
+}
+
+variable "peering_cidr_block" {
+}
+
+variable "az" {
+}
+
+variable "az2" {
+}
+
+variable "logging_bucket_id" {
+}
+
+variable "archive_bucket" {
+}
+
+variable "archive_bucket_name" {
+}
+
+variable "apps_buckets_kms_key" {
+}
+
+variable "environment" {
+}
 
 variable "naming_suffix" {
   default     = false
@@ -32,3 +55,4 @@ variable "dq_lambda_subnet_cidr_az2" {
 variable "rds_enhanced_monitoring_role" {
   description = "ARN of the RDS enhanced monitoring role"
 }
+

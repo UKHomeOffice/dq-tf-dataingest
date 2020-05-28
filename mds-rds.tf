@@ -2,19 +2,19 @@ resource "aws_db_subnet_group" "mds_rds" {
   name = "mds_rds_main_group"
 
   subnet_ids = [
-    "${aws_subnet.data_ingest.id}",
-    "${aws_subnet.data_ingest_az2.id}",
+    aws_subnet.data_ingest.id,
+    aws_subnet.data_ingest_az2.id,
   ]
 
-  tags {
+  tags = {
     Name = "mds-rds-subnet-group-${local.naming_suffix}"
   }
 }
 
 resource "aws_security_group" "mds_postgres" {
-  vpc_id = "${var.appsvpc_id}"
+  vpc_id = var.appsvpc_id
 
-  tags {
+  tags = {
     Name = "sg-mds-db-${local.naming_suffix}"
   }
 
@@ -24,11 +24,11 @@ resource "aws_security_group" "mds_postgres" {
     protocol  = "tcp"
 
     cidr_blocks = [
-      "${var.opssubnet_cidr_block}",
-      "${var.data_ingest_cidr_block}",
-      "${var.peering_cidr_block}",
-      "${var.dq_lambda_subnet_cidr}",
-      "${var.dq_lambda_subnet_cidr_az2}",
+      var.opssubnet_cidr_block,
+      var.data_ingest_cidr_block,
+      var.peering_cidr_block,
+      var.dq_lambda_subnet_cidr,
+      var.dq_lambda_subnet_cidr_az2,
     ]
   }
 
@@ -54,13 +54,13 @@ resource "random_string" "mds_password" {
 resource "aws_ssm_parameter" "mds_username" {
   name  = "mds_username"
   type  = "SecureString"
-  value = "${random_string.mds_username.result}"
+  value = random_string.mds_username.result
 }
 
 resource "aws_ssm_parameter" "mds_password" {
   name  = "mds_password"
   type  = "SecureString"
-  value = "${random_string.mds_password.result}"
+  value = random_string.mds_password.result
 }
 
 resource "aws_db_instance" "mds_postgres" {
@@ -68,24 +68,24 @@ resource "aws_db_instance" "mds_postgres" {
   allocated_storage               = 200
   storage_type                    = "gp2"
   engine                          = "postgres"
-  engine_version                  = "${var.environment == "prod" ? "10.10" : "10.10"}"
+  engine_version                  = var.environment == "prod" ? "10.10" : "10.10"
   instance_class                  = "db.m4.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
-  username                        = "${random_string.mds_username.result}"
-  password                        = "${random_string.mds_password.result}"
-  backup_window                   = "${var.environment == "prod" ? "00:00-01:00" : "07:00-08:00"}"
-  maintenance_window              = "${var.environment == "prod" ? "tue:01:00-tue:02:00" : "mon:08:00-mon:09:00"}"
+  username                        = random_string.mds_username.result
+  password                        = random_string.mds_password.result
+  backup_window                   = var.environment == "prod" ? "00:00-01:00" : "07:00-08:00"
+  maintenance_window              = var.environment == "prod" ? "tue:01:00-tue:02:00" : "mon:08:00-mon:09:00"
   backup_retention_period         = 14
   deletion_protection             = true
   storage_encrypted               = true
   multi_az                        = false
   skip_final_snapshot             = true
-  ca_cert_identifier              = "${var.environment == "prod" ? "rds-ca-2019" : "rds-ca-2019"}"
-  apply_immediately               = "${var.environment == "prod" ? "false" : "true"}"
+  ca_cert_identifier              = var.environment == "prod" ? "rds-ca-2019" : "rds-ca-2019"
+  apply_immediately               = var.environment == "prod" ? "false" : "true"
   monitoring_interval             = "60"
-  monitoring_role_arn             = "${var.rds_enhanced_monitoring_role}"
-  db_subnet_group_name            = "${aws_db_subnet_group.mds_rds.id}"
-  vpc_security_group_ids          = ["${aws_security_group.mds_postgres.id}"]
+  monitoring_role_arn             = var.rds_enhanced_monitoring_role
+  db_subnet_group_name            = aws_db_subnet_group.mds_rds.id
+  vpc_security_group_ids          = [aws_security_group.mds_postgres.id]
 
   performance_insights_enabled          = true
   performance_insights_retention_period = "7"
@@ -94,7 +94,7 @@ resource "aws_db_instance" "mds_postgres" {
     prevent_destroy = true
   }
 
-  tags {
+  tags = {
     Name = "mds-rds-postgres-${local.naming_suffix}"
   }
 }
@@ -102,9 +102,10 @@ resource "aws_db_instance" "mds_postgres" {
 module "rds_alarms" {
   source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
 
-  naming_suffix                = "${local.naming_suffix}"
-  environment                  = "${var.naming_suffix}"
+  naming_suffix                = local.naming_suffix
+  environment                  = var.naming_suffix
   pipeline_name                = "MDS"
-  db_instance_id               = "${aws_db_instance.mds_postgres.id}"
+  db_instance_id               = aws_db_instance.mds_postgres.id
   free_storage_space_threshold = 30000000000 # 30GB free space
 }
+
