@@ -13,14 +13,15 @@ resource "aws_iam_role" "mds_rds_iam_role" {
   ]
 }
 EOF
+
 }
 
 resource "aws_iam_instance_profile" "mds_rds_iam_profile" {
-  role = "${aws_iam_role.mds_rds_iam_role.name}"
+  role = aws_iam_role.mds_rds_iam_role.name
 }
 
 resource "aws_iam_role_policy" "mds_rds_iam_policy" {
-  role = "${aws_iam_role.mds_rds_iam_role.id}"
+  role = aws_iam_role.mds_rds_iam_role.id
 
   policy = <<EOF
 {
@@ -54,4 +55,6 @@ resource "aws_iam_role_policy" "mds_rds_iam_policy" {
    ]
 }
 EOF
+
 }
+

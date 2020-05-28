@@ -1,4 +1,5 @@
-data "aws_region" "current" {}
+data "aws_region" "current" {
+}
 
 data "aws_ssm_parameter" "data-landing-s3" {
   name = "data-landing-s3"
@@ -19,3 +20,4 @@ data "aws_ssm_parameter" "ga_bucket_id" {
 data "aws_ssm_parameter" "ga_bucket_key" {
   name = "gait_secret_key"
 }
+
