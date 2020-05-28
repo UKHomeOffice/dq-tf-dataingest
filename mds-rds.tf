@@ -100,7 +100,8 @@ resource "aws_db_instance" "mds_postgres" {
 }
 
 module "rds_alarms" {
-  source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
+  source = "git::https://github.com/ukhomeoffice/dq-tf-cloudwatch-rds.git?ref=TF12-upgrade"
+
 
   naming_suffix                = local.naming_suffix
   environment                  = var.naming_suffix
@@ -108,4 +109,3 @@ module "rds_alarms" {
   db_instance_id               = aws_db_instance.mds_postgres.id
   free_storage_space_threshold = 30000000000 # 30GB free space
 }
-

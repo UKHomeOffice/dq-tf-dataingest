@@ -71,7 +71,7 @@ class TestE2E(unittest.TestCase):
         self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "engine_version"), "10.10")
 
     def test_name_suffix_mds_apply_immediately(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "apply_immediately"), "false")
+        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "apply_immediately"), False)
 
 if __name__ == '__main__':
     unittest.main()
