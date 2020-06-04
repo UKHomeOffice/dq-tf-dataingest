@@ -100,7 +100,7 @@ resource "aws_db_instance" "mds_postgres" {
 }
 
 module "rds_alarms" {
-  source = "git::https://github.com/ukhomeoffice/dq-tf-cloudwatch-rds.git?ref=TF12-upgrade"
+  source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
 
 
   naming_suffix                = local.naming_suffix
