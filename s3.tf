@@ -12,7 +12,7 @@ resource "aws_kms_key" "data_landing_bucket_key" {
 
 resource "aws_s3_bucket" "data_landing_bucket" {
   bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
-  region = data.aws_region.current.name
+  # region = data.aws_region.current.name
 
   server_side_encryption_configuration {
     rule {
@@ -75,7 +75,7 @@ resource "aws_kms_key" "dacc_data_landing_bucket_key" {
 
 resource "aws_s3_bucket" "dacc_data_landing_bucket" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
-  region = data.aws_region.current.name
+  # region = data.aws_region.current.name
 
   server_side_encryption_configuration {
     rule {
@@ -129,4 +129,3 @@ resource "aws_s3_bucket_policy" "dacc_data_landing_bucket" {
 POLICY
 
 }
-
