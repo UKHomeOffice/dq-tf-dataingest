@@ -92,6 +92,9 @@ resource "aws_db_instance" "mds_postgres" {
 
   lifecycle {
     prevent_destroy = true
+    ignore_changes = [
+      engine_version,
+    ]
   }
 
   tags = {
