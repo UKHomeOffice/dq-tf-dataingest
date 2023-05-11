@@ -28,7 +28,7 @@ steps:
   pull: always
   image: 340268328991.dkr.ecr.eu-west-2.amazonaws.com/acp/dind:latest
   commands:
-  - /usr/local/bin/wait
+  - /usr/local/bin/wait 30
   - docker run --rm -v $(pwd):/data -w /data hashicorp/terraform fmt --diff --check
   when:
     event:
@@ -41,9 +41,9 @@ steps:
     *retrieve-deployment-aws-key
   environment:
     VAULT_ADDR:
-      from_secret: VAULT_ADDR_DEV
+      from_secret: VAULT_ADDR_NOTPROD
     VAULT_TOKEN:
-      from_secret: VAULT_TOKEN_DEV
+      from_secret: VAULT_TOKEN_NOTPROD
   when:
     event:
       - push
