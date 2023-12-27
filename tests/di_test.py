@@ -11,7 +11,6 @@ class TestE2E(unittest.TestCase):
             provider "aws" {
               region = "eu-west-2"
               skip_credentials_validation = true
-              skip_get_ec2_platforms = true
             }
 
             module "data_ingest" {
@@ -34,7 +33,7 @@ class TestE2E(unittest.TestCase):
               archive_bucket_name          = "dq-test"
               apps_buckets_kms_key         = "arn:aws:kms:eu-west-2:123456789:key/654dy74520786elkfugho4576lfk;suh358976"
               environment                  = "prod"
-              rds_enhanced_monitoring_role = "arn:aws:iam::123456789:role/rds-enhanced-monitoring-role"
+              rds_enhanced_monitoring_role = "arn:aws:iam::aws:policy/service-role/AmazonRDSEnhancedMonitoringRole"
             }
         """
         self.runner = Runner(self.snippet)
