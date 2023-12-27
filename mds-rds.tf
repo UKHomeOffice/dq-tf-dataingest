@@ -42,7 +42,7 @@ resource "aws_security_group" "mds_postgres" {
 
 resource "random_string" "mds_username" {
   length  = 8
-  number  = false
+  numeric  = false
   special = false
 }
 
@@ -103,7 +103,7 @@ resource "aws_db_instance" "mds_postgres" {
 }
 
 module "rds_alarms" {
-  source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
+  source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds?ref=yel-8750-migrate-tf-version"
 
 
   naming_suffix                = local.naming_suffix
