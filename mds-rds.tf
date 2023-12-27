@@ -42,7 +42,7 @@ resource "aws_security_group" "mds_postgres" {
 
 resource "random_string" "mds_username" {
   length  = 8
-  numeric  = false
+  numeric = false
   special = false
 }
 
