@@ -42,7 +42,7 @@ resource "aws_security_group" "mds_postgres" {
 
 resource "random_string" "mds_username" {
   length  = 8
-  number  = false
+  numeric = false
   special = false
 }
 
@@ -109,6 +109,6 @@ module "rds_alarms" {
   naming_suffix                = local.naming_suffix
   environment                  = var.naming_suffix
   pipeline_name                = "MDS"
-  db_instance_id               = aws_db_instance.mds_postgres.id
+  db_instance_id               = aws_db_instance.mds_postgres.identifier
   free_storage_space_threshold = 30000000000 # 30GB free space
 }
