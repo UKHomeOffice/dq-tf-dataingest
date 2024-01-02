@@ -82,29 +82,33 @@ resource "aws_s3_bucket" "dacc_data_landing_bucket" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   # region = data.aws_region.current.name
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        kms_master_key_id = aws_kms_key.dacc_data_landing_bucket_key.arn
-        sse_algorithm     = "aws:kms"
-      }
-    }
-  }
-
-  versioning {
-    enabled = true
-  }
-
-  logging {
-    target_bucket = var.logging_bucket_id
-    target_prefix = "dacc_data_landing_bucket/"
-  }
-
   tags = {
     Name = "s3-dacc-data-landing-bucket-${local.naming_suffix}"
   }
 }
 
+resource "aws_s3_bucket_versioning" "dacc_data_landing_bucket_versioning" {
+  bucket = aws_s3_bucket.dacc_data_landing_bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
+
+resource "aws_s3_bucket_logging" "dacc_data_landing_bucket_logging" {
+  bucket        = aws_s3_bucket.dacc_data_landing_bucket.id
+  target_bucket = var.logging_bucket_id
+  target_prefix = "dacc_data_landing_bucket/"
+}
+
+resource "aws_s3_bucket_server_side_encryption_configuration" "dacc_data_landing_bucket_server_side_encryption_configuration" {
+  bucket = ""
+  rule {
+    apply_server_side_encryption_by_default {
+      kms_master_key_id = aws_kms_key.dacc_data_landing_bucket_key.arn
+      sse_algorithm     = "aws:kms"
+    }
+  }
+}
 resource "aws_s3_bucket_metric" "dacc_data_landing_bucket_logging" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   name   = "dacc_data_landing_bucket_metric"
