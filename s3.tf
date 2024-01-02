@@ -23,10 +23,6 @@ resource "aws_s3_bucket" "data_landing_bucket" {
     }
   }
 
-  versioning {
-    enabled = true
-  }
-
   logging {
     target_bucket = var.logging_bucket_id
     target_prefix = "data_landing_bucket/"
@@ -34,6 +30,13 @@ resource "aws_s3_bucket" "data_landing_bucket" {
 
   tags = {
     Name = "s3-data-landing-bucket-${local.naming_suffix}"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "data_landing_bucket_versioning" {
+  bucket = aws_s3_bucket.data_landing_bucket.id
+  versioning_configuration {
+    status = "Enabled"
   }
 }
 
