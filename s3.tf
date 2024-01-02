@@ -101,7 +101,7 @@ resource "aws_s3_bucket_logging" "dacc_data_landing_bucket_logging" {
 }
 
 resource "aws_s3_bucket_server_side_encryption_configuration" "dacc_data_landing_bucket_ss_encryption_config" {
-  bucket = ""
+  bucket = aws_s3_bucket.dacc_data_landing_bucket.id
   rule {
     apply_server_side_encryption_by_default {
       kms_master_key_id = aws_kms_key.dacc_data_landing_bucket_key.arn
