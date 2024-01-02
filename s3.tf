@@ -23,11 +23,6 @@ resource "aws_s3_bucket" "data_landing_bucket" {
     }
   }
 
-  logging {
-    target_bucket = var.logging_bucket_id
-    target_prefix = "data_landing_bucket/"
-  }
-
   tags = {
     Name = "s3-data-landing-bucket-${local.naming_suffix}"
   }
@@ -38,6 +33,12 @@ resource "aws_s3_bucket_versioning" "data_landing_bucket_versioning" {
   versioning_configuration {
     status = "Enabled"
   }
+}
+
+resource "aws_s3_bucket_logging" "data_landing_bucket_logging" {
+  bucket        = aws_s3_bucket.data_landing_bucket.id
+  target_bucket = var.logging_bucket_id
+  target_prefix = "data_landing_bucket/"
 }
 
 resource "aws_s3_bucket_metric" "data_landing_bucket_logging" {
