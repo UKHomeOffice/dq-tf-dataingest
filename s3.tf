@@ -32,7 +32,7 @@ resource "aws_s3_bucket_logging" "data_landing_bucket_logging" {
   target_prefix = "data_landing_bucket/"
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "data_landing_bucket_server_side_encryption_configuration" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "data_landing_bucket_ss_encryption_config" {
   bucket = aws_s3_bucket.data_landing_bucket.id
   rule {
     apply_server_side_encryption_by_default {
@@ -100,7 +100,7 @@ resource "aws_s3_bucket_logging" "dacc_data_landing_bucket_logging" {
   target_prefix = "dacc_data_landing_bucket/"
 }
 
-resource "aws_s3_bucket_server_side_encryption_configuration" "dacc_data_landing_bucket_server_side_encryption_configuration" {
+resource "aws_s3_bucket_server_side_encryption_configuration" "dacc_data_landing_bucket_ss_encryption_config" {
   bucket = ""
   rule {
     apply_server_side_encryption_by_default {
