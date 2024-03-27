@@ -68,7 +68,7 @@ resource "aws_db_instance" "mds_postgres" {
   allocated_storage               = 200
   storage_type                    = "gp2"
   engine                          = "postgres"
-  engine_version                  = var.environment == "prod" ? "10.10" : "10.10"
+  engine_version                  = var.environment == "prod" ? "10.23" : "10.23"
   instance_class                  = "db.m4.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   username                        = random_string.mds_username.result
@@ -80,7 +80,7 @@ resource "aws_db_instance" "mds_postgres" {
   storage_encrypted               = true
   multi_az                        = false
   skip_final_snapshot             = true
-  ca_cert_identifier              = var.environment == "prod" ? "rds-ca-2019" : "rds-ca-2019"
+  ca_cert_identifier              = var.environment == "prod" ? "rds-ca-rsa2048-g1" : "rds-ca-rsa2048-g1"
   apply_immediately               = var.environment == "prod" ? "false" : "true"
   monitoring_interval             = "60"
   monitoring_role_arn             = var.rds_enhanced_monitoring_role
