@@ -14,6 +14,18 @@ resource "aws_s3_bucket" "data_landing_bucket" {
   bucket = "s3-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   # region = data.aws_region.current.name
 
+  lifecycle_rule {
+    enabled = true
+    transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+    noncurrent_version_transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+  }
+
   tags = {
     Name = "s3-data-landing-bucket-${local.naming_suffix}"
   }
@@ -81,6 +93,18 @@ resource "aws_kms_key" "dacc_data_landing_bucket_key" {
 resource "aws_s3_bucket" "dacc_data_landing_bucket" {
   bucket = "s3-dacc-data-landing-${local.naming_suffix}-${random_string.s3.result}"
   # region = data.aws_region.current.name
+
+  lifecycle_rule {
+    enabled = true
+    transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+    noncurrent_version_transition {
+      days          = 0
+      storage_class = "INTELLIGENT_TIERING"
+    }
+  }
 
   tags = {
     Name = "s3-dacc-data-landing-bucket-${local.naming_suffix}"
