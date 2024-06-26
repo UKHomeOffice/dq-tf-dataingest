@@ -25,7 +25,7 @@ resource "aws_s3_bucket" "data_landing_bucket" {
       storage_class = "INTELLIGENT_TIERING"
     }
     noncurrent_version_expiration {
-      days = 1
+      days = 1 
     }
   }
 
