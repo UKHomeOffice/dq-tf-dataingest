@@ -69,7 +69,7 @@ resource "aws_db_instance" "mds_postgres" {
   storage_type                    = "gp2"
   engine                          = "postgres"
   engine_version                  = var.environment == "prod" ? "10.23" : "10.23"
-  instance_class                  = "db.m4.large"
+  instance_class                  = "db.m5.large"
   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
   username                        = random_string.mds_username.result
   password                        = random_string.mds_password.result
