@@ -63,44 +63,44 @@ resource "aws_ssm_parameter" "mds_password" {
   value = random_string.mds_password.result
 }
 
-resource "aws_db_instance" "mds_postgres" {
-  identifier                      = "mds-postgres-${local.naming_suffix}"
-  allocated_storage               = 200
-  storage_type                    = "gp2"
-  engine                          = "postgres"
-  engine_version                  = var.environment == "prod" ? "10.23" : "10.23"
-  instance_class                  = "db.m5.large"
-  enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
-  username                        = random_string.mds_username.result
-  password                        = random_string.mds_password.result
-  backup_window                   = var.environment == "prod" ? "00:00-01:00" : "07:00-08:00"
-  maintenance_window              = var.environment == "prod" ? "tue:01:00-tue:02:00" : "mon:08:00-mon:09:00"
-  backup_retention_period         = 14
-  deletion_protection             = true
-  storage_encrypted               = true
-  multi_az                        = false
-  skip_final_snapshot             = true
-  ca_cert_identifier              = var.environment == "prod" ? "rds-ca-rsa2048-g1" : "rds-ca-rsa2048-g1"
-  apply_immediately               = var.environment == "prod" ? "false" : "true"
-  monitoring_interval             = "60"
-  monitoring_role_arn             = var.rds_enhanced_monitoring_role
-  db_subnet_group_name            = aws_db_subnet_group.mds_rds.id
-  vpc_security_group_ids          = [aws_security_group.mds_postgres.id]
+# resource "aws_db_instance" "mds_postgres" {
+#   identifier                      = "mds-postgres-${local.naming_suffix}"
+#   allocated_storage               = 200
+#   storage_type                    = "gp2"
+#   engine                          = "postgres"
+#   engine_version                  = var.environment == "prod" ? "10.23" : "10.23"
+#   instance_class                  = "db.m5.large"
+#   enabled_cloudwatch_logs_exports = ["postgresql", "upgrade"]
+#   username                        = random_string.mds_username.result
+#   password                        = random_string.mds_password.result
+#   backup_window                   = var.environment == "prod" ? "00:00-01:00" : "07:00-08:00"
+#   maintenance_window              = var.environment == "prod" ? "tue:01:00-tue:02:00" : "mon:08:00-mon:09:00"
+#   backup_retention_period         = 14
+#   deletion_protection             = true
+#   storage_encrypted               = true
+#   multi_az                        = false
+#   skip_final_snapshot             = true
+#   ca_cert_identifier              = var.environment == "prod" ? "rds-ca-rsa2048-g1" : "rds-ca-rsa2048-g1"
+#   apply_immediately               = var.environment == "prod" ? "false" : "true"
+#   monitoring_interval             = "60"
+#   monitoring_role_arn             = var.rds_enhanced_monitoring_role
+#   db_subnet_group_name            = aws_db_subnet_group.mds_rds.id
+#   vpc_security_group_ids          = [aws_security_group.mds_postgres.id]
 
-  performance_insights_enabled          = true
-  performance_insights_retention_period = "7"
+#   performance_insights_enabled          = true
+#   performance_insights_retention_period = "7"
 
-  lifecycle {
-    prevent_destroy = true
-    ignore_changes = [
-      engine_version,
-    ]
-  }
+#   lifecycle {
+#     prevent_destroy = true
+#     ignore_changes = [
+#       engine_version,
+#     ]
+#   }
 
-  tags = {
-    Name = "mds-rds-postgres-${local.naming_suffix}"
-  }
-}
+#   tags = {
+#     Name = "mds-rds-postgres-${local.naming_suffix}"
+#   }
+# }
 
 module "rds_alarms" {
   source = "github.com/UKHomeOffice/dq-tf-cloudwatch-rds"
