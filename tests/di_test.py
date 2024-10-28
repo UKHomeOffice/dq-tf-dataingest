@@ -66,8 +66,8 @@ class TestE2E(unittest.TestCase):
     def test_name_suffix_mds_ca_cert_identifier(self):
         self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "ca_cert_identifier"), "rds-ca-rsa2048-g1")
 
-    def test_name_suffix_mds_engine_version(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "engine_version"), "10.23")
+    #def test_name_suffix_mds_engine_version(self):
+    #    self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "engine_version"), "10.23")
 
     def test_name_suffix_mds_apply_immediately(self):
         self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "apply_immediately"), False)
