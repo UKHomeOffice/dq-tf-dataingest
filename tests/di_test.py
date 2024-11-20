@@ -39,38 +39,5 @@ class TestE2E(unittest.TestCase):
         self.runner = Runner(self.snippet)
         self.result = self.runner.result
 
-    def test_data_ingest_subnet(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_subnet.data_ingest", "cidr_block"), "10.1.6.0/24")
-
-    def test_name_suffix_data_ingest(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_subnet.data_ingest", "tags"), {"Name": "subnet-dataingest-apps-prod-dq"})
-
-    def test_name_suffix_rds_subnet(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_subnet.data_ingest_az2", "tags"), {"Name": "az2-subnet-dataingest-apps-prod-dq"})
-
-    def test_name_suffix_mds_subnet_group(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_subnet_group.mds_rds", "tags"), {"Name": "mds-rds-subnet-group-dataingest-apps-prod-dq"})
-
-    def test_name_suffix_mds_tag(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "tags"), {"Name": "mds-rds-postgres-dataingest-apps-prod-dq"})
-
-    def test_name_suffix_mds_identifier(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "identifier"), "mds-postgres-dataingest-apps-prod-dq")
-
-    def test_name_suffix_mds_backup_window(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "backup_window"), "00:00-01:00")
-
-    def test_name_suffix_mds_maintenance_window(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "maintenance_window"), "tue:01:00-tue:02:00")
-
-    def test_name_suffix_mds_ca_cert_identifier(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "ca_cert_identifier"), "rds-ca-rsa2048-g1")
-
-    #def test_name_suffix_mds_engine_version(self):
-    #    self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "engine_version"), "10.23")
-
-    def test_name_suffix_mds_apply_immediately(self):
-        self.assertEqual(self.runner.get_value("module.data_ingest.aws_db_instance.mds_postgres", "apply_immediately"), False)
-
 if __name__ == '__main__':
     unittest.main()

@@ -5,8 +5,3 @@ output "data_landing_bucket_arn" {
 output "data_landing_bucket_key_arn" {
   value = aws_kms_key.data_landing_bucket_key.arn
 }
-
-output "rds_mds_address" {
-  value = aws_db_instance.mds_postgres.address
-}
-
