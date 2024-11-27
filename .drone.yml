@@ -78,3 +78,21 @@ steps:
   when:
     event:
       - push
+- name: renew-vault-tokens
+  pull: if-not-exists
+  image: quay.io/ukhomeofficedigital/hashicorp-vault:1.6.0
+  commands:
+    #Renew Mode Drone Vault Token
+    - unset VAULT_ADDR
+    - unset VAULT_TOKEN
+    - export VAULT_TOKEN=$${VAULT_TOKEN_NOTPROD}
+    - export VAULT_ADDR=$${VAULT_ADDR_NOTPROD}
+    - vault token renew > /dev/null
+  environment:
+    VAULT_ADDR_NOTPROD:
+      from_secret: VAULT_ADDR_NOTPROD
+    VAULT_TOKEN_NOTPROD:
+      from_secret: VAULT_TOKEN_NOTPROD
+  when:
+    event: [ cron ]
+    cron: [ renew-vault-tokens ]
